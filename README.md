@@ -1,0 +1,2 @@
+# reviewkosakatasas
+LCN PALEMBANG 
