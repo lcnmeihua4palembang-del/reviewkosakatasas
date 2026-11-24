@@ -3,215 +3,183 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Flashcard Depan Kelas - Hanzi FZKai Kelas 4 SD</title>
+  <title>Flashcard Interaktif Depan Kelas - Hanzi FZKai Kelas 4 SD</title>
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Nunito untuk teks anak-anak & LXGW WenKai sebagai fallback universal FZKai -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai:wght@400;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet" />
 
   <style>
-    /* Prioritas Font FZKai (方正楷体 / KaiTi) untuk tampilan jelas di depan kelas */
-    .font-fzkai {
-      font-family: 'FZKai-Z03', 'FZKTJW', 'KaiTi', 'STKaiti', 'Kaiti SC', 'LXGW WenKai', serif;
-    }
-
+    /* Latar Belakang Cerah Beranimasi Lembut untuk Depan Kelas */
     body {
       font-family: 'Nunito', sans-serif;
+      background: linear-gradient(135deg, #FEF9C3 0%, #FFEDD5 35%, #E0F2FE 70%, #DCFCE7 100%);
+      background-size: 300% 300%;
+      animation: sunnyGradient 16s ease infinite;
       overflow-x: hidden;
     }
 
-    /* Latar Belakang Cerah Beranimasi Pelangi Lembut */
-    .sunny-sky-bg {
-      background: linear-gradient(135deg, #FEF08A 0%, #BAE6FD 35%, #FBCFE8 70%, #BBF7D0 100%);
-      background-size: 300% 300%;
-      animation: gradientShift 16s ease infinite;
-    }
-
-    @keyframes gradientShift {
+    @keyframes sunnyGradient {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
 
-    /* Animasi Awan & Bintang Melayang di Latar */
-    @keyframes floatSlow {
-      0%, 100% { transform: translateY(0px) translateX(0px); }
-      50% { transform: translateY(-14px) translateX(10px); }
-    }
-    @keyframes floatReverse {
-      0%, 100% { transform: translateY(0px) translateX(0px); }
-      50% { transform: translateY(12px) translateX(-12px); }
-    }
-    @keyframes spinSlow {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-    @keyframes bounceGentle {
-      0%, 100% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-8px) scale(1.04); }
+    /* Prioritas Font FZKai (方正楷体 / KaiTi) untuk seluruh karakter Hanzi */
+    .font-fzkai {
+      font-family: 'FZKai-Z03', 'FZKai-Z03S', 'FZKTJW', 'FZKTK', 'KaiTi', 'STKaiti', 'Kaiti SC', 'BiauKai', 'DFKai-SB', 'LXGW WenKai', serif;
+      letter-spacing: 0.04em;
     }
 
-    .animate-float-slow { animation: floatSlow 7s ease-in-out infinite; }
-    .animate-float-rev { animation: floatReverse 8s ease-in-out infinite; }
-    .animate-spin-slow { animation: spinSlow 28s linear infinite; }
-    .animate-bounce-gentle { animation: bounceGentle 3s ease-in-out infinite; }
-
-    /* Animasi Kartu 3D Flip */
-    .perspective-1200 {
-      perspective: 1400px;
-    }
-    .flip-card-inner {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      transition: transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1);
-      transform-style: preserve-3d;
-    }
-    .flip-card-inner.is-flipped {
-      transform: rotateY(180deg);
-    }
-    .flip-card-face {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      -webkit-backface-visibility: hidden;
-      backface-visibility: hidden;
-    }
-    .flip-card-back {
-      transform: rotateY(180deg);
-    }
-
-    /* Animasi Transisi Masuk Kartu Baru */
-    @keyframes cardSlideIn {
-      0% { opacity: 0; transform: scale(0.92) translateY(18px); }
-      100% { opacity: 1; transform: scale(1) translateY(0); }
-    }
-    .card-enter {
-      animation: cardSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-
-    /* Kotak Karakter Tianzige (田字格) di Belakang Huruf Hanzi */
+    /* Kotak Bantu Menulis & Membaca Karakter Mandarin (Tianzige 田字格) */
     .tianzige-box {
       position: relative;
       background-color: #FFFDF7;
       border: 3px solid #F59E0B;
       border-radius: 18px;
-      box-shadow: inset 0 0 12px rgba(245, 158, 11, 0.12);
+      box-shadow: inset 0 0 12px rgba(245, 158, 11, 0.14), 0 6px 14px rgba(180, 83, 9, 0.08);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
+
     .tianzige-box::before {
       content: "";
       position: absolute;
-      top: 50%;
-      left: 0;
-      right: 0;
-      border-top: 2px dashed rgba(245, 158, 11, 0.38);
+      inset: 0;
+      background-image:
+        linear-gradient(to right, transparent calc(50% - 1px), rgba(245, 158, 11, 0.35) calc(50% - 1px), rgba(245, 158, 11, 0.35) calc(50% + 1px), transparent calc(50% + 1px)),
+        linear-gradient(to bottom, transparent calc(50% - 1px), rgba(245, 158, 11, 0.35) calc(50% - 1px), rgba(245, 158, 11, 0.35) calc(50% + 1px), transparent calc(50% + 1px));
       pointer-events: none;
+      border-radius: 15px;
     }
+
     .tianzige-box::after {
       content: "";
       position: absolute;
-      left: 50%;
-      top: 0;
-      bottom: 0;
-      border-left: 2px dashed rgba(245, 158, 11, 0.38);
+      inset: 0;
+      background:
+        linear-gradient(45deg, transparent calc(50% - 0.75px), rgba(245, 158, 11, 0.2) 50%, transparent calc(50% + 0.75px)),
+        linear-gradient(-45deg, transparent calc(50% - 0.75px), rgba(245, 158, 11, 0.2) 50%, transparent calc(50% + 0.75px));
+      pointer-events: none;
+      border-radius: 15px;
+    }
+
+    /* Animasi Transisi Kartu Halus (Tanpa bug klik 3D backface) */
+    @keyframes cardEntrance {
+      0% {
+        opacity: 0;
+        transform: scale(0.94) translateY(14px);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    @keyframes cardFlipPop {
+      0% {
+        opacity: 0.4;
+        transform: scale(0.95);
+      }
+      50% {
+        transform: scale(1.02);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(3deg); }
+    }
+
+    @keyframes pulseRing {
+      0% { transform: scale(0.95); opacity: 0.75; }
+      70% { transform: scale(1.18); opacity: 0; }
+      100% { transform: scale(1.18); opacity: 0; }
+    }
+
+    .animate-card-enter {
+      animation: cardEntrance 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .animate-card-flip {
+      animation: cardFlipPop 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .animate-float {
+      animation: floatSlow 3.6s ease-in-out infinite;
+    }
+
+    .speaking-wave {
+      position: relative;
+    }
+    .speaking-wave::after {
+      content: "";
+      position: absolute;
+      inset: -4px;
+      border-radius: inherit;
+      border: 3px solid #F59E0B;
+      animation: pulseRing 1.1s infinite;
       pointer-events: none;
     }
 
-    /* Equalizer Gelombang Suara saat Berbicara */
-    @keyframes soundWave {
-      0%, 100% { height: 6px; }
-      50% { height: 22px; }
+    /* Scrollbar rapi untuk laci daftar kata */
+    .nice-scroll::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
     }
-    .wave-bar {
-      width: 4px;
-      height: 6px;
-      border-radius: 9999px;
-      background-color: currentColor;
+    .nice-scroll::-webkit-scrollbar-track {
+      background: #FEF3C7;
+      border-radius: 999px;
     }
-    .speaking .wave-bar:nth-child(1) { animation: soundWave 0.55s ease-in-out infinite 0.0s; }
-    .speaking .wave-bar:nth-child(2) { animation: soundWave 0.55s ease-in-out infinite 0.15s; }
-    .speaking .wave-bar:nth-child(3) { animation: soundWave 0.55s ease-in-out infinite 0.3s; }
-    .speaking .wave-bar:nth-child(4) { animation: soundWave 0.55s ease-in-out infinite 0.1s; }
-
-    /* Konfeti Perayaan */
-    @keyframes confettiFall {
-      0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-    }
-    .confetti-piece {
-      position: fixed;
-      top: -10px;
-      z-index: 60;
-      pointer-events: none;
-      animation: confettiFall 2.4s linear forwards;
+    .nice-scroll::-webkit-scrollbar-thumb {
+      background: #F59E0B;
+      border-radius: 999px;
     }
   </style>
 </head>
-<body class="min-h-screen sunny-sky-bg flex flex-col text-slate-800 relative selection:bg-amber-300">
+<body class="min-h-screen flex flex-col text-slate-800 selection:bg-amber-200 relative">
 
-  <!-- ==================== DEKORASI LATAR CERAH BERANIMASI ==================== -->
-  <div class="fixed inset-0 pointer-events-none overflow-hidden z-0" aria-hidden="true">
-    <!-- Matahari Tersenyum di Pojok Kiri Atas -->
-    <div class="absolute -top-10 -left-10 w-44 h-44 opacity-80 animate-spin-slow">
-      <svg viewBox="0 0 160 160" class="w-full h-full">
-        <circle cx="80" cy="80" r="42" fill="#FACC15" />
-        <g stroke="#F59E0B" stroke-width="8" stroke-linecap="round">
-          <line x1="80" y1="8" x2="80" y2="26" />
-          <line x1="80" y1="134" x2="80" y2="152" />
-          <line x1="8" y1="80" x2="26" y2="80" />
-          <line x1="134" y1="80" x2="152" y2="80" />
-          <line x1="29" y1="29" x2="42" y2="42" />
-          <line x1="118" y1="118" x2="131" y2="131" />
-          <line x1="131" y1="29" x2="118" y2="42" />
-          <line x1="42" y1="118" x2="29" y2="131" />
-        </g>
-      </svg>
-    </div>
-
-    <!-- Awan Lucu Melayang -->
-    <div class="absolute top-16 right-8 w-44 h-24 opacity-85 animate-float-slow">
-      <svg viewBox="0 0 200 110" class="w-full h-full">
-        <path d="M45 90 H155 A30 30 0 0 0 155 30 A40 40 0 0 0 80 22 A32 32 0 0 0 45 90 Z" fill="#FFFFFF" />
-      </svg>
-    </div>
-    <div class="absolute bottom-24 left-6 w-40 h-20 opacity-75 animate-float-rev">
-      <svg viewBox="0 0 200 110" class="w-full h-full">
-        <path d="M45 90 H155 A30 30 0 0 0 155 30 A40 40 0 0 0 80 22 A32 32 0 0 0 45 90 Z" fill="#FFFFFF" />
-      </svg>
-    </div>
-    <!-- Bintang-Bintang Pastel -->
-    <div class="absolute top-1/3 left-10 text-3xl opacity-70 animate-bounce-gentle">⭐</div>
-    <div class="absolute bottom-1/3 right-10 text-3xl opacity-70 animate-float-slow">🌈</div>
-    <div class="absolute top-24 left-1/3 text-2xl opacity-60 animate-float-rev">✨</div>
+  <!-- Dekorasi Awan & Bintang Cerah di Latar Belakang -->
+  <div class="pointer-events-none fixed inset-0 overflow-hidden z-0 opacity-55">
+    <div class="absolute top-16 left-6 text-4xl sm:text-5xl animate-float">☁️</div>
+    <div class="absolute top-24 right-8 text-3xl sm:text-4xl animate-float" style="animation-delay: 1s;">✨</div>
+    <div class="absolute bottom-24 left-8 text-3xl sm:text-4xl animate-float" style="animation-delay: 1.8s;">🎈</div>
+    <div class="absolute bottom-28 right-10 text-4xl sm:text-5xl animate-float" style="animation-delay: 0.7s;">🌟</div>
   </div>
 
-  <!-- ==================== HEADER KONTROL GURU (DEPAN KELAS) ==================== -->
-  <header class="relative z-20 bg-white/90 backdrop-blur-md border-b-4 border-amber-400 shadow-md">
+  <!-- ==================== HEADER KONTROL KELAS ==================== -->
+  <header class="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b-4 border-amber-300 shadow-md">
     <div class="max-w-7xl mx-auto px-3 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-2">
       <!-- Identitas Kelas -->
       <div class="flex items-center gap-2.5">
-        <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 text-white font-fzkai text-3xl font-bold flex items-center justify-center shadow-md border-2 border-white">
-          读
+        <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 text-white font-fzkai text-2xl sm:text-3xl font-bold flex items-center justify-center shadow-md border-2 border-amber-200 shrink-0">
+          字
         </div>
         <div>
           <h1 class="text-base sm:text-xl font-black text-slate-900 leading-tight">
-            Flashcard Hanzi Depan Kelas <span class="text-orange-600">• Kelas 4 SD</span>
+            Flashcard Hanzi Kelas 4 SD <span class="text-orange-600">• Font FZKai</span>
           </h1>
-          <p class="text-xs font-bold text-slate-500">
-             • Klik kartu untuk membalik & dengarkan suara • by lcnpalembang-08994477998 
+          <p class="text-xs text-slate-600 font-bold">
+            Tampilan Layar Besar Depan Kelas • Klik Kata untuk Baca Satu per Satu
           </p>
         </div>
       </div>
 
-      <!-- Tombol Alat Bantu Guru di Depan Kelas -->
+      <!-- Tombol Pengaturan Guru / Proyektor -->
       <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
         <!-- Toggle Kotak Tianzige -->
         <button
           id="btnTianzige"
           onclick="toggleTianzige()"
-          class="px-3 py-2 rounded-xl text-xs sm:text-sm font-extrabold border-2 transition cursor-pointer bg-amber-100 text-amber-900 border-amber-400"
-          title="Tampilkan/Sembunyikan Garis Bantu Karakter 田字格"
+          class="px-3 py-2 rounded-xl text-xs sm:text-sm font-extrabold bg-amber-100 text-amber-900 border-2 border-amber-400 hover:bg-amber-200 transition cursor-pointer"
+          title="Tampilkan/Sembunyikan Kotak Garis Huruf Mandarin"
         >
           田 Kotak Huruf: ON
         </button>
@@ -220,72 +188,62 @@
         <button
           id="btnFrontPinyin"
           onclick="toggleFrontPinyin()"
-          class="px-3 py-2 rounded-xl text-xs sm:text-sm font-extrabold border-2 transition cursor-pointer bg-slate-100 text-slate-700 border-slate-300"
+          class="px-3 py-2 rounded-xl text-xs sm:text-sm font-extrabold bg-slate-100 text-slate-700 border-2 border-slate-300 hover:bg-amber-50 transition cursor-pointer"
           title="Tampilkan Pinyin langsung di sisi depan kartu"
         >
           👀 Pinyin Depan: OFF
-        </button>
-
-        <!-- Toggle Putar Otomatis (Auto Slideshow) -->
-        <button
-          id="btnAutoPlay"
-          onclick="toggleAutoPlay()"
-          class="px-3 py-2 rounded-xl text-xs sm:text-sm font-extrabold border-2 transition cursor-pointer bg-sky-100 hover:bg-sky-200 text-sky-900 border-sky-300"
-          title="Putar otomatis untuk latihan membaca bersama satu kelas"
-        >
-          ▶️ Auto Baca
         </button>
 
         <!-- Toggle Efek Suara -->
         <button
           id="btnSoundFx"
           onclick="toggleSoundFx()"
-          class="px-3 py-2 rounded-xl text-xs sm:text-sm font-extrabold border-2 transition cursor-pointer bg-emerald-100 text-emerald-900 border-emerald-300"
-          title="Nyalakan/Matikan Efek Suara Ceria"
+          class="px-3 py-2 rounded-xl text-xs sm:text-sm font-extrabold bg-sky-100 text-sky-900 border-2 border-sky-300 hover:bg-sky-200 transition cursor-pointer"
+          title="Aktifkan/Matikan Efek Suara Ceria"
         >
-          🔔 Efek Suara
+          🔔 Efek Suara: ON
         </button>
 
-        <!-- Tombol Daftar Semua Kata -->
+        <!-- Tombol Buka Daftar Semua Kata -->
         <button
           onclick="toggleDrawer()"
-          class="px-3 py-2 rounded-xl text-xs sm:text-sm font-extrabold bg-purple-600 hover:bg-purple-700 text-white shadow-xs transition cursor-pointer"
+          class="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-extrabold bg-purple-600 hover:bg-purple-700 text-white shadow-sm border-b-2 border-purple-800 transition cursor-pointer"
         >
-          📚 Daftar Kata (<span id="totalBadgeCount">50</span>)
+          📚 Daftar Kata (<span id="totalBadgeCount">0</span>)
         </button>
 
-        <!-- Tombol Fullscreen Proyektor Kelas -->
+        <!-- Tombol Layar Penuh Proyektor -->
         <button
           onclick="toggleFullscreen()"
-          class="px-3 py-2 rounded-xl text-xs sm:text-sm font-extrabold bg-slate-800 hover:bg-slate-900 text-white shadow-xs transition cursor-pointer"
-          title="Tampilan Layar Penuh di Depan Kelas"
+          class="hidden sm:inline-flex px-3 py-2 rounded-xl text-xs sm:text-sm font-extrabold bg-slate-800 hover:bg-slate-900 text-white shadow-sm transition cursor-pointer"
+          title="Layar Penuh untuk Proyektor / Smartboard"
         >
-          🖥️ Layar Penuh
+          ⛶ Layar Penuh
         </button>
       </div>
     </div>
 
-    <!-- Filter Kategori Kosakata -->
-    <div class="bg-amber-50/90 border-t border-amber-200/80 px-3 sm:px-6 py-2 overflow-x-auto">
-      <div id="categoryBar" class="max-w-7xl mx-auto flex items-center gap-2 min-w-max">
+    <!-- Filter Kategori Cepat -->
+    <div class="bg-amber-50/90 border-t border-amber-200 px-3 sm:px-6 py-2">
+      <div id="categoryTabs" class="max-w-7xl mx-auto flex items-center gap-2 overflow-x-auto nice-scroll pb-0.5">
         <!-- Diisi via JavaScript -->
       </div>
     </div>
   </header>
 
-  <!-- ==================== AREA UTAMA KARTU BESAR DEPAN KELAS ==================== -->
+  <!-- ==================== AREA UTAMA FLASHCARD LAYAR BESAR ==================== -->
   <main class="relative z-10 flex-1 max-w-6xl w-full mx-auto px-3 sm:px-6 py-4 sm:py-6 flex flex-col items-center justify-center">
 
-    <!-- Bar Info Nomor Kartu & Tombol Acak -->
+    <!-- Bar Info Kartu & Tombol Aksi Cepat -->
     <div class="w-full max-w-4xl flex flex-wrap items-center justify-between gap-2 mb-3">
-      <div class="flex items-center gap-2">
-        <span id="cardCounterBadge" class="px-4 py-1.5 rounded-full bg-white/95 text-slate-900 font-black text-sm sm:text-base shadow-sm border-2 border-amber-300">
-          Kartu 1 / 50
+      <div class="flex flex-wrap items-center gap-2">
+        <span id="cardCounterBadge" class="px-4 py-1.5 rounded-full bg-white text-slate-900 font-black text-sm sm:text-base shadow-sm border-2 border-amber-300">
+          Kartu 1 / 92
         </span>
-        <span id="cardCategoryBadge" class="px-3.5 py-1.5 rounded-full bg-orange-500 text-white font-extrabold text-xs sm:text-sm shadow-sm">
+        <span id="cardCategoryBadge" class="px-3.5 py-1.5 rounded-full bg-gradient-to-r from-orange-500 to-amber-500 text-white font-extrabold text-xs sm:text-sm shadow-sm">
           Kategori
         </span>
-        <span id="masteredCountBadge" class="px-3 py-1.5 rounded-full bg-emerald-500 text-white font-extrabold text-xs sm:text-sm shadow-sm">
+        <span id="masteredCountBadge" class="px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 font-extrabold text-xs sm:text-sm">
           ⭐ Hafal: 0
         </span>
       </div>
@@ -293,227 +251,107 @@
       <div class="flex items-center gap-2">
         <button
           onclick="shuffleDeck()"
-          class="px-3.5 py-1.5 rounded-full bg-white hover:bg-amber-100 text-amber-900 font-extrabold text-xs sm:text-sm border-2 border-amber-300 shadow-xs active:scale-95 transition cursor-pointer"
+          class="px-3.5 py-1.5 rounded-full bg-white hover:bg-amber-100 text-amber-900 font-extrabold text-xs sm:text-sm border-2 border-amber-300 shadow-2xs transition cursor-pointer"
         >
           🔀 Acak Urutan
         </button>
         <button
-          onclick="resetOrder()"
-          class="px-3.5 py-1.5 rounded-full bg-white hover:bg-slate-100 text-slate-700 font-extrabold text-xs sm:text-sm border-2 border-slate-300 shadow-xs active:scale-95 transition cursor-pointer"
+          id="btnAutoPlay"
+          onclick="toggleAutoPlay()"
+          class="px-3.5 py-1.5 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-xs sm:text-sm shadow-2xs transition cursor-pointer"
         >
-          🔢 Urutkan
+          ▶️ Auto Baca Kelas
         </button>
       </div>
     </div>
 
-    <!-- KARTU FLASHCARD 3D RAKSASA (UNTUK PROYEKTOR DEPAN KELAS) -->
-    <div id="cardWrapper" class="w-full max-w-4xl h-[430px] sm:h-[490px] md:h-[530px] perspective-1200 card-enter">
-      <div id="flipCardInner" class="flip-card-inner" onclick="handleCardClick(event)">
-
-        <!-- ==================== SISI DEPAN KARTU (HANZI BESAR FZKAI) ==================== -->
-        <div
-          id="cardFrontFace"
-          class="flip-card-face rounded-[36px] bg-white border-[6px] border-amber-400 shadow-2xl p-5 sm:p-8 flex flex-col items-center justify-between cursor-pointer select-none"
-        >
-          <!-- Bagian Atas Depan: Visual Lucu & Petunjuk -->
-          <div class="w-full flex items-center justify-between gap-2">
-            <span class="px-3.5 py-1 rounded-full bg-amber-100 text-amber-900 font-extrabold text-xs sm:text-sm">
-              👆 Klik kartu atau tekan Spasi untuk melihat arti
-            </span>
-            <button
-              onclick="event.stopPropagation(); toggleMastered();"
-              id="frontStarBtn"
-              class="px-3.5 py-1.5 rounded-full bg-slate-100 hover:bg-amber-100 text-slate-600 font-extrabold text-xs sm:text-sm border border-slate-300 transition cursor-pointer"
-            >
-              ☆ Tandai Hafal
-            </button>
-          </div>
-
-          <!-- Tengah Depan: Ilustrasi Visual + Karakter Hanzi FZKai Raksasa -->
-          <div class="flex-1 w-full flex flex-col items-center justify-center my-2 gap-3">
-            <!-- Visual Emoji/SVG Besar -->
-            <div id="frontVisualBox" class="text-5xl sm:text-6xl md:text-7xl animate-bounce-gentle drop-shadow-sm">
-              🎂
-            </div>
-
-            <!-- Hanzi Raksasa Font FZKai -->
-            <div id="frontHanziContainer" class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 px-2">
-              <!-- Diisi karakter FZKai besar -->
-            </div>
-
-            <!-- Pinyin Opsional di Sisi Depan -->
-            <div id="frontPinyinDisplay" class="hidden text-2xl sm:text-3xl font-black text-orange-600 tracking-wide bg-orange-50 px-5 py-1 rounded-2xl border border-orange-200">
-              dàngāo
-            </div>
-          </div>
-
-          <!-- Bawah Depan: Tombol Suara Mandarin Normal & Pelan -->
-          <div class="w-full flex flex-wrap items-center justify-center gap-3 pt-2" onclick="event.stopPropagation()">
-            <button
-              id="btnSpeakNormal"
-              onclick="speakCurrentWord(0.9)"
-              class="px-5 sm:px-7 py-3 rounded-2xl bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-black text-sm sm:text-lg shadow-md border-b-4 border-orange-700 active:translate-y-0.5 transition flex items-center gap-2.5 cursor-pointer"
-            >
-              <span>🔊 Suara Normal</span>
-              <span class="wave-group flex items-center gap-1 h-5">
-                <span class="wave-bar"></span>
-                <span class="wave-bar"></span>
-                <span class="wave-bar"></span>
-                <span class="wave-bar"></span>
-              </span>
-            </button>
-
-            <button
-              id="btnSpeakSlow"
-              onclick="speakCurrentWord(0.55)"
-              class="px-5 sm:px-6 py-3 rounded-2xl bg-gradient-to-r from-sky-500 to-indigo-500 hover:from-sky-600 hover:to-indigo-600 text-white font-black text-sm sm:text-lg shadow-md border-b-4 border-indigo-700 active:translate-y-0.5 transition flex items-center gap-2 cursor-pointer"
-            >
-              <span>🐢 Baca Pelan</span>
-            </button>
-
-            <button
-              onclick="flipCard()"
-              class="px-5 sm:px-6 py-3 rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-white font-black text-sm sm:text-lg shadow-md border-b-4 border-emerald-700 active:translate-y-0.5 transition flex items-center gap-2 cursor-pointer"
-            >
-              <span>🔄 Balik Kartu</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- ==================== SISI BELAKANG KARTU (PINYIN, ARTI & CONTOH KALIMAT) ==================== -->
-        <div
-          id="cardBackFace"
-          class="flip-card-face flip-card-back rounded-[36px] bg-gradient-to-br from-white via-amber-50 to-sky-50 border-[6px] border-emerald-400 shadow-2xl p-5 sm:p-8 flex flex-col items-center justify-between cursor-pointer select-none"
-        >
-          <!-- Bar Atas Belakang -->
-          <div class="w-full flex items-center justify-between gap-2">
-            <span class="px-3.5 py-1 rounded-full bg-emerald-100 text-emerald-900 font-extrabold text-xs sm:text-sm">
-              📖 Arti & Contoh Penggunaan
-            </span>
-            <button
-              onclick="event.stopPropagation(); toggleMastered();"
-              id="backStarBtn"
-              class="px-4 py-1.5 rounded-full bg-amber-400 hover:bg-amber-500 text-amber-950 font-black text-xs sm:text-sm shadow-xs transition cursor-pointer"
-            >
-              ⭐ Bintang Hafal!
-            </button>
-          </div>
-
-          <!-- Konten Utama Belakang -->
-          <div class="flex-1 w-full flex flex-col items-center justify-center text-center my-2 space-y-3">
-            <!-- Hanzi + Pinyin Besar -->
-            <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-5">
-              <span id="backVisualIcon" class="text-4xl sm:text-5xl">🎂</span>
-              <span id="backHanziText" class="font-fzkai text-5xl sm:text-6xl md:text-7xl font-bold text-slate-900">
-                蛋糕
-              </span>
-            </div>
-
-            <!-- Pinyin -->
-            <div id="backPinyinText" class="text-3xl sm:text-4xl md:text-5xl font-black text-rose-600 tracking-wide">
-              dàngāo
-            </div>
-
-            <!-- Arti Bahasa Indonesia -->
-            <div id="backMeaningText" class="px-6 py-2 rounded-2xl bg-emerald-500 text-white text-2xl sm:text-3xl md:text-4xl font-black shadow-sm">
-              Kue / Kue Tart
-            </div>
-
-            <!-- Kotak Contoh Kalimat dari Soal -->
-            <div class="w-full max-w-2xl bg-white/95 rounded-2xl p-3.5 sm:p-4 border-2 border-sky-200 shadow-xs mt-2">
-              <div class="text-xs font-extrabold text-sky-700 uppercase tracking-wider mb-1">
-                Contoh Kalimat di Kelas:
-              </div>
-              <div id="backExampleHanzi" class="font-fzkai text-2xl sm:text-3xl font-bold text-slate-900">
-                妈妈买了四块蛋糕。
-              </div>
-              <div id="backExamplePinyin" class="text-xs sm:text-sm font-bold text-amber-700 mt-1">
-                Māma mǎi le sì kuài dàngāo.
-              </div>
-              <div id="backExampleMeaning" class="text-xs sm:text-sm font-semibold text-slate-600">
-                Ibu membeli empat potong kue.
-              </div>
-            </div>
-          </div>
-
-          <!-- Tombol Aksi Sisi Belakang -->
-          <div class="w-full flex flex-wrap items-center justify-center gap-3 pt-2" onclick="event.stopPropagation()">
-            <button
-              onclick="speakCurrentWord(0.9)"
-              class="px-5 py-2.5 rounded-2xl bg-orange-500 hover:bg-orange-600 text-white font-black text-sm sm:text-base shadow-md border-b-4 border-orange-700 active:translate-y-0.5 transition cursor-pointer"
-            >
-              🔊 Ulangi Kata
-            </button>
-
-            <button
-              onclick="speakCurrentExample()"
-              class="px-5 py-2.5 rounded-2xl bg-sky-500 hover:bg-sky-600 text-white font-black text-sm sm:text-base shadow-md border-b-4 border-sky-700 active:translate-y-0.5 transition cursor-pointer"
-            >
-              🗣️ Baca Contoh Kalimat
-            </button>
-
-            <button
-              onclick="flipCard()"
-              class="px-5 py-2.5 rounded-2xl bg-slate-700 hover:bg-slate-800 text-white font-black text-sm sm:text-base shadow-md border-b-4 border-slate-900 active:translate-y-0.5 transition cursor-pointer"
-            >
-              🔄 Kembali ke Hanzi
-            </button>
-          </div>
-        </div>
-
-      </div>
+    <!-- KARTU FLASHCARD UTAMA (DEPAN / BELAKANG) -->
+    <div id="flashcardContainer" class="w-full max-w-4xl">
+      <!-- Dirender secara dinamis dengan animasi indah oleh JavaScript -->
     </div>
 
-    <!-- ==================== TOMBOL NAVIGASI BESAR (KIRI / KANAN) ==================== -->
-    <div class="w-full max-w-4xl mt-5 flex items-center justify-between gap-3">
+    <!-- NAVIGASI BAWAH BESAR UNTUK GURU & MURID -->
+    <div class="w-full max-w-4xl mt-5 grid grid-cols-3 gap-3 sm:gap-4">
       <button
         onclick="prevCard()"
-        class="flex-1 sm:flex-none sm:w-52 py-3.5 px-6 rounded-2xl bg-white hover:bg-amber-50 text-slate-900 font-black text-base sm:text-xl shadow-lg border-b-4 border-slate-300 active:translate-y-0.5 transition flex items-center justify-center gap-2 cursor-pointer"
+        class="py-3.5 sm:py-4 px-4 rounded-2xl bg-white hover:bg-amber-50 active:scale-95 text-slate-800 font-black text-sm sm:text-lg shadow-md border-2 border-amber-300 border-b-4 flex items-center justify-center gap-2 transition cursor-pointer"
       >
-        <span>⬅</span>
+        <span>⬅️</span>
         <span>Sebelumnya</span>
       </button>
 
-      <!-- Progress Bar Mini di Tengah -->
-      <div class="hidden md:flex flex-col items-center flex-1 px-4">
-        <div class="w-full h-3.5 bg-white/80 rounded-full overflow-hidden border-2 border-amber-300 shadow-inner">
-          <div id="deckProgressBar" class="h-full bg-gradient-to-r from-amber-400 via-orange-500 to-rose-500 transition-all duration-300" style="width: 2%"></div>
-        </div>
-        <span class="text-xs font-extrabold text-slate-700 mt-1">
-          Pintasan Keyboard: <kbd class="px-1.5 py-0.5 bg-white rounded border">⬅</kbd> <kbd class="px-1.5 py-0.5 bg-white rounded border">➡</kbd> Pindah • <kbd class="px-1.5 py-0.5 bg-white rounded border">Spasi</kbd> Balik • <kbd class="px-1.5 py-0.5 bg-white rounded border">S</kbd> Suara
-        </span>
-      </div>
+      <button
+        onclick="flipCard()"
+        class="py-3.5 sm:py-4 px-4 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 active:scale-95 text-white font-black text-sm sm:text-lg shadow-md border-b-4 border-indigo-900 flex items-center justify-center gap-2 transition cursor-pointer"
+      >
+        <span>🔄</span>
+        <span id="flipBtnLabel">Lihat Pinyin & Arti</span>
+      </button>
 
       <button
         onclick="nextCard()"
-        class="flex-1 sm:flex-none sm:w-52 py-3.5 px-6 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-black text-base sm:text-xl shadow-lg border-b-4 border-emerald-700 active:translate-y-0.5 transition flex items-center justify-center gap-2 cursor-pointer"
+        class="py-3.5 sm:py-4 px-4 rounded-2xl bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 active:scale-95 text-white font-black text-sm sm:text-lg shadow-md border-b-4 border-orange-700 flex items-center justify-center gap-2 transition cursor-pointer"
       >
-        <span>Berikutnya</span>
-        <span>➡</span>
+        <span>Selanjutnya</span>
+        <span>➡️</span>
       </button>
     </div>
+
+    <!-- Petunjuk Pintasan Keyboard untuk Guru -->
+    <p class="mt-3 text-center text-xs font-bold text-slate-600 bg-white/70 px-4 py-1.5 rounded-full border border-amber-200">
+      💡 Tips Guru: Klik <strong>tiap huruf/kata Hanzi</strong> untuk membacanya satu per satu • Keyboard: <kbd class="px-1.5 py-0.5 bg-white rounded border">Spasi</kbd> Balik Kartu, <kbd class="px-1.5 py-0.5 bg-white rounded border">⬅</kbd> <kbd class="px-1.5 py-0.5 bg-white rounded border">➡</kbd> Pindah, <kbd class="px-1.5 py-0.5 bg-white rounded border">S</kbd> Suara
+    </p>
   </main>
 
   <!-- ==================== MODAL / DRAWER DAFTAR SEMUA KATA ==================== -->
-  <div id="wordDrawer" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-6">
-    <div class="bg-white w-full max-w-5xl max-h-[88vh] rounded-3xl shadow-2xl border-4 border-amber-400 flex flex-col overflow-hidden">
-      <div class="p-4 sm:p-5 bg-gradient-to-r from-amber-400 to-orange-500 text-white flex items-center justify-between">
+  <div
+    id="wordListModal"
+    class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-6"
+  >
+    <div class="bg-white w-full max-w-5xl max-h-[88vh] rounded-3xl shadow-2xl border-4 border-amber-300 flex flex-col overflow-hidden animate-card-enter">
+      <!-- Header Modal -->
+      <div class="p-4 sm:p-5 bg-gradient-to-r from-amber-100 to-orange-100 border-b-2 border-amber-200 flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h2 class="text-lg sm:text-2xl font-black">📚 Daftar Seluruh Kata & Kalimat (Font FZKai)</h2>
-          <p class="text-xs sm:text-sm text-amber-100 font-bold">Klik kartu mana saja untuk langsung ditampilkan besar di depan kelas</p>
+          <h2 class="text-lg sm:text-2xl font-black text-amber-950">
+            📚 Daftar Semua Kosakata, Pilihan Kata & Kalimat (<span id="modalCount">0</span>)
+          </h2>
+          <p class="text-xs sm:text-sm text-amber-800 font-bold">
+            Klik kartu mana saja untuk langsung menampilkannya besar di depan kelas!
+          </p>
         </div>
         <button
           onclick="toggleDrawer()"
-          class="w-10 h-10 rounded-2xl bg-white/20 hover:bg-white/30 text-white font-black text-xl flex items-center justify-center cursor-pointer"
+          class="px-4 py-2 rounded-2xl bg-rose-500 hover:bg-rose-600 text-white font-black text-sm shadow-sm cursor-pointer"
         >
-          ✕
+          ✕ Tutup
         </button>
       </div>
 
-      <div id="drawerGrid" class="p-4 sm:p-6 overflow-y-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 bg-amber-50/50">
-        <!-- Diisi via JS -->
+      <!-- Kotak Pencarian Cepat -->
+      <div class="p-3 sm:px-5 bg-amber-50/70 border-b border-amber-200">
+        <input
+          id="searchInput"
+          type="text"
+          oninput="renderWordGrid()"
+          placeholder="Cari Hanzi, Pinyin, atau arti bahasa Indonesia (contoh: 渡轮, shéi, pensil, kereta)..."
+          class="w-full px-4 py-2.5 rounded-2xl bg-white border-2 border-amber-300 focus:border-orange-500 focus:outline-none font-bold text-sm"
+        />
+      </div>
+
+      <!-- Grid Daftar Semua Kartu -->
+      <div id="wordGridContainer" class="p-4 sm:p-5 overflow-y-auto nice-scroll grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 flex-1">
+        <!-- Diisi via JavaScript -->
       </div>
     </div>
+  </div>
+
+  <!-- Toast Notifikasi Ramah Kelas -->
+  <div
+    id="toastBanner"
+    class="fixed bottom-16 right-4 z-50 transform translate-y-24 opacity-0 pointer-events-none transition-all duration-300 bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-xl border-2 border-amber-400 font-extrabold text-xs sm:text-sm flex items-center gap-2"
+  >
+    <span id="toastEmoji">🔊</span>
+    <span id="toastText">Membacakan...</span>
   </div>
 
   <!-- ==================== FOOTER ==================== -->
@@ -523,226 +361,290 @@
     </p>
   </footer>
 
-  <!-- ==================== JAVASCRIPT DATA KATA & LOGIKA INTERAKTIF ==================== -->
+  <!-- ==================== JAVASCRIPT DATA & INTERAKSI ==================== -->
   <script>
     /**
-     * Database Lengkap 50 Kata, Pilihan Jawaban, dan Kalimat Utuh dari Latihan Kelas 4 SD
+     * BANK DATA LENGKAP FLASHCARD (92 KARTU):
+     * Mencakup:
+     * 1. Seluruh kosakata baru yang diminta guru (渡轮，时候，谁，哪儿，怎么，最，少，多，完，想，下雨，虽然，但是，去，到，上课，开车，北京，名字，做，只，要，这，个，件，条，支，铅笔，每天)
+     * 2. Seluruh kata & pilihan kata dari bacaan dan soal latihan kelas 4 SD
+     * 3. Kalimat pendek dari PDF ujian & latihan yang memakai kosakata tersebut (dengan pemisahan kata `segments` agar bisa dibaca satu per satu!)
      */
-    const ALL_FLASHCARDS = [
-      // === KATEGORI 1: ORANG, BENDA & TEMPAT ===
-      { id: 1, category: "Benda & Tempat", visual: "👫", hanzi: "朋友", pinyin: "péngyou", meaning: "Teman", exHanzi: "今天我的朋友小美来我家。", exPinyin: "Jīntiān wǒ de péngyou Xiǎoměi lái wǒ jiā.", exMeaning: "Hari ini temanku Xiaomei datang ke rumahku.", border: "border-amber-400" },
-      { id: 2, category: "Benda & Tempat", visual: "🎒", hanzi: "同学", pinyin: "tóngxué", meaning: "Teman sekolah / sekelas", exHanzi: "每天早上我和同学一起去学校。", exPinyin: "Měitiān zǎoshang wǒ hé tóngxué yīqǐ qù xuéxiào.", exMeaning: "Setiap pagi aku dan teman sekolah pergi ke sekolah bersama.", border: "border-sky-400" },
-      { id: 3, category: "Benda & Tempat", visual: "👩‍🏫", hanzi: "老师", pinyin: "lǎoshī", meaning: "Guru", exHanzi: "王老师教我们读汉字。", exPinyin: "Wáng lǎoshī jiāo wǒmen dú Hànzì.", exMeaning: "Guru Wang mengajari kami membaca huruf Hanzi.", border: "border-rose-400" },
-      { id: 4, category: "Benda & Tempat", visual: "🎂", hanzi: "蛋糕", pinyin: "dàngāo", meaning: "Kue / Kue Tart", exHanzi: "妈妈买了四块蛋糕。", exPinyin: "Māma mǎi le sì kuài dàngāo.", exMeaning: "Ibu membeli empat potong kue.", border: "border-pink-400" },
-      { id: 5, category: "Benda & Tempat", visual: "🍌", hanzi: "香蕉", pinyin: "xiāngjiāo", meaning: "Pisang", exHanzi: "猴子很喜欢吃香蕉。", exPinyin: "Hóuzi hěn xǐhuan chī xiāngjiāo.", exMeaning: "Monyet sangat suka makan pisang.", border: "border-yellow-400" },
-      { id: 6, category: "Benda & Tempat", visual: "🍎", hanzi: "苹果", pinyin: "píngguǒ", meaning: "Apel", exHanzi: "妹妹有三个苹果。", exPinyin: "Mèimei yǒu sān gè píngguǒ.", exMeaning: "Adik perempuan mempunyai tiga buah apel.", border: "border-red-400" },
-      { id: 7, category: "Benda & Tempat", visual: "🍦", hanzi: "冰淇淋", pinyin: "bīngqílín", meaning: "Es Krim", exHanzi: "天气很热，我想吃冰淇淋。", exPinyin: "Tiānqì hěn rè, wǒ xiǎng chī bīngqílín.", exMeaning: "Cuaca sangat panas, aku ingin makan es krim.", border: "border-cyan-400" },
-      { id: 8, category: "Benda & Tempat", visual: "🍳", hanzi: "厨房", pinyin: "chúfáng", meaning: "Dapur", exHanzi: "妈妈在厨房里做饭。", exPinyin: "Māma zài chúfáng lǐ zuòfàn.", exMeaning: "Ibu sedang memasak di dalam dapur.", border: "border-orange-400" },
-      { id: 9, category: "Benda & Tempat", visual: "🪑", hanzi: "椅子", pinyin: "yǐzi", meaning: "Kursi", exHanzi: "她把蛋糕放在椅子上。", exPinyin: "Tā bǎ dàngāo fàng zài yǐzi shàng.", exMeaning: "Dia meletakkan kue di atas kursi.", border: "border-amber-500" },
-      { id: 10, category: "Benda & Tempat", visual: "🪵", hanzi: "桌子", pinyin: "zhuōzi", meaning: "Meja", exHanzi: "书包放在桌子上。", exPinyin: "Shūbāo fàng zài zhuōzi shàng.", exMeaning: "Tas sekolah diletakkan di atas meja.", border: "border-lime-500" },
-      { id: 11, category: "Benda & Tempat", visual: "🛏️", hanzi: "床上", pinyin: "chuáng shàng", meaning: "Di atas tempat tidur", exHanzi: "我看见床上有一件新衣服。", exPinyin: "Wǒ kànjiàn chuáng shàng yǒu yī jiàn xīn yīfu.", exMeaning: "Aku melihat di atas tempat tidur ada sehelai baju baru.", border: "border-indigo-400" },
-      { id: 12, category: "Benda & Tempat", visual: "👗", hanzi: "裙子", pinyin: "qúnzi", meaning: "Rok", exHanzi: "这件衣服是一条蓝色的裙子。", exPinyin: "Zhè jiàn yīfu shì yī tiáo lán sè de qúnzi.", exMeaning: "Pakaian ini adalah sehelai rok berwarna biru.", border: "border-purple-400" },
-      { id: 13, category: "Benda & Tempat", visual: "👖", hanzi: "裤子", pinyin: "kùzi", meaning: "Celana", exHanzi: "哥哥穿了一条新裤子。", exPinyin: "Gēge chuān le yī tiáo xīn kùzi.", exMeaning: "Kakak laki-laki memakai celana baru.", border: "border-blue-400" },
-      { id: 14, category: "Benda & Tempat", visual: "🧢", hanzi: "帽子", pinyin: "màozi", meaning: "Topi", exHanzi: "弟弟戴了一顶红帽子。", exPinyin: "Dìdi dài le yī dǐng hóng màozi.", exMeaning: "Adik laki-laki memakai topi merah.", border: "border-teal-400" },
+    const ALL_CARDS = [
+      // === 1. KOSAKATA KUNCI & BARU ===
+      { id: 1, category: "Kosakata Baru", visual: "⛴️", hanzi: "渡轮", pinyin: "dùlún", meaning: "Kapal feri", segments: ["渡", "轮"], segPinyin: ["dù", "lún"], exHanzi: "我们可以坐渡轮去。", exPinyin: "Wǒmen kěyǐ zuò dùlún qù.", exMeaning: "Kita bisa naik kapal feri pergi ke sana.", accent: "sky" },
+      { id: 2, category: "Kosakata Baru", visual: "⏰", hanzi: "时候", pinyin: "shíhou", meaning: "Saat / Waktu", segments: ["时", "候"], segPinyin: ["shí", "hou"], exHanzi: "要吃蛋糕的时候，妈妈对我说。", exPinyin: "Yào chī dàngāo de shíhou, māma duì wǒ shuō.", exMeaning: "Pada saat hendak makan kue, ibu berkata kepadaku.", accent: "amber" },
+      { id: 3, category: "Kosakata Baru", visual: "🕵️", hanzi: "谁", pinyin: "shéi", meaning: "Siapa", segments: ["谁"], segPinyin: ["shéi"], exHanzi: "谁拿了桌子上的蛋糕呢？", exPinyin: "Shéi ná le zhuōzi shàng de dàngāo ne?", exMeaning: "Siapa yang mengambil kue di atas meja ya?", accent: "orange" },
+      { id: 4, category: "Kosakata Baru", visual: "🗺️", hanzi: "哪儿", pinyin: "nǎr", meaning: "Di mana / Ke mana", segments: ["哪", "儿"], segPinyin: ["nǎ", "r"], exHanzi: "妈妈把蛋糕放在哪儿？", exPinyin: "Māma bǎ dàngāo fàng zài nǎr?", exMeaning: "Di mana ibu meletakkan kue?", accent: "emerald" },
+      { id: 5, category: "Kosakata Baru", visual: "🤔", hanzi: "怎么", pinyin: "zěnme", meaning: "Bagaimana / Kenapa", segments: ["怎", "么"], segPinyin: ["zěn", "me"], exHanzi: "桌子上的蛋糕怎么了？", exPinyin: "Zhuōzi shàng de dàngāo zěnme le?", exMeaning: "Ada apa / kenapa dengan kue di atas meja?", accent: "purple" },
+      { id: 6, category: "Kosakata Baru", visual: "🏆", hanzi: "最", pinyin: "zuì", meaning: "Paling", segments: ["最"], segPinyin: ["zuì"], exHanzi: "这部电影最好看。", exPinyin: "Zhè bù diànyǐng zuì hǎokàn.", exMeaning: "Film ini paling bagus ditonton.", accent: "amber" },
+      { id: 7, category: "Kosakata Baru", visual: "➖", hanzi: "少", pinyin: "shǎo", meaning: "Sedikit / Berkurang", segments: ["少"], segPinyin: ["shǎo"], exHanzi: "桌子上的蛋糕少了一块。", exPinyin: "Zhuōzi shàng de dàngāo shǎo le yī kuài.", exMeaning: "Kue di atas meja berkurang satu potong.", accent: "rose" },
+      { id: 8, category: "Kosakata Baru", visual: "➕", hanzi: "多", pinyin: "duō", meaning: "Banyak", segments: ["多"], segPinyin: ["duō"], exHanzi: "你要多喝水，才会健康。", exPinyin: "Nǐ yào duō hē shuǐ, cái huì jiànkāng.", exMeaning: "Kamu harus banyak minum air, barulah sehat.", accent: "emerald" },
+      { id: 9, category: "Kosakata Baru", visual: "🏁", hanzi: "完", pinyin: "wán", meaning: "Selesai / Habis", segments: ["完"], segPinyin: ["wán"], exHanzi: "蛋糕吃完了。", exPinyin: "Dàngāo chī wán le.", exMeaning: "Kuenya sudah habis dimakan.", accent: "indigo" },
+      { id: 10, category: "Kosakata Baru", visual: "💭", hanzi: "想", pinyin: "xiǎng", meaning: "Ingin / Mau / Berpikir", segments: ["想"], segPinyin: ["xiǎng"], exHanzi: "他很想去看新电影。", exPinyin: "Tā hěn xiǎng qù kàn xīn diànyǐng.", exMeaning: "Dia sangat ingin pergi menonton film baru.", accent: "purple" },
+      { id: 11, category: "Kosakata Baru", visual: "🌧️", hanzi: "下雨", pinyin: "xiàyǔ", meaning: "Turun hujan", segments: ["下", "雨"], segPinyin: ["xià", "yǔ"], exHanzi: "因为今天下雨了，所以我没有去踢足球。", exPinyin: "Yīnwèi jīntiān xiàyǔ le, suǒyǐ wǒ méiyǒu qù tī zúqiú.", exMeaning: "Karena hari ini turun hujan, jadi aku tidak pergi bermain sepak bola.", accent: "sky" },
+      { id: 12, category: "Kosakata Baru", visual: "🌦️", hanzi: "虽然", pinyin: "suīrán", meaning: "Walaupun / Meskipun", segments: ["虽", "然"], segPinyin: ["suī", "rán"], exHanzi: "虽然下雨了，但是我还是想去。", exPinyin: "Suīrán xiàyǔ le, dànshì wǒ háishì xiǎng qù.", exMeaning: "Walaupun turun hujan, tetapi aku tetap ingin pergi.", accent: "cyan" },
+      { id: 13, category: "Kosakata Baru", visual: "↪️", hanzi: "但是", pinyin: "dànshì", meaning: "Tetapi", segments: ["但", "是"], segPinyin: ["dàn", "shì"], exHanzi: "我也很想去，但是今天要去奶奶家。", exPinyin: "Wǒ yě hěn xiǎng qù, dànshì jīntiān yào qù nǎinai jiā.", exMeaning: "Aku juga sangat ingin pergi, tetapi hari ini mau pergi ke rumah nenek.", accent: "orange" },
+      { id: 14, category: "Kosakata Baru", visual: "🚶‍♂️", hanzi: "去", pinyin: "qù", meaning: "Pergi", segments: ["去"], segPinyin: ["qù"], exHanzi: "今天我和妈妈要去奶奶家。", exPinyin: "Jīntiān wǒ hé māma yào qù nǎinai jiā.", exMeaning: "Hari ini aku dan ibu mau pergi ke rumah nenek.", accent: "emerald" },
+      { id: 15, category: "Kosakata Baru", visual: "📍", hanzi: "到", pinyin: "dào", meaning: "Tiba / Sampai", segments: ["到"], segPinyin: ["dào"], exHanzi: "我们每天六点半到学校。", exPinyin: "Wǒmen měitiān liù diǎn bàn dào xuéxiào.", exMeaning: "Kami setiap hari pukul setengah tujuh tiba di sekolah.", accent: "rose" },
+      { id: 16, category: "Kosakata Baru", visual: "🏫", hanzi: "上课", pinyin: "shàngkè", meaning: "Masuk kelas / Pelajaran dimulai", segments: ["上", "课"], segPinyin: ["shàng", "kè"], exHanzi: "我们每天七点上课。", exPinyin: "Wǒmen měitiān qī diǎn shàngkè.", exMeaning: "Kami setiap hari masuk kelas pukul tujuh.", accent: "amber" },
+      { id: 17, category: "Kosakata Baru", visual: "🚘", hanzi: "开车", pinyin: "kāichē", meaning: "Menyetir / Mengendarai mobil", segments: ["开", "车"], segPinyin: ["kāi", "chē"], exHanzi: "爸爸，您开车慢点儿，别太快！", exPinyin: "Bàba, nín kāichē màn diǎnr, bié tài kuài!", exMeaning: "Ayah, menyetir mobilnya pelan sedikit, jangan terlalu cepat!", accent: "indigo" },
+      { id: 18, category: "Kosakata Baru", visual: "🏯", hanzi: "北京", pinyin: "Běijīng", meaning: "Beijing (Ibu Kota Tiongkok)", segments: ["北", "京"], segPinyin: ["Běi", "jīng"], exHanzi: "我们可以坐飞机去北京。", exPinyin: "Wǒmen kěyǐ zuò fēijī qù Běijīng.", exMeaning: "Kita bisa naik pesawat pergi ke Beijing.", accent: "rose" },
+      { id: 19, category: "Kosakata Baru", visual: "🪪", hanzi: "名字", pinyin: "míngzi", meaning: "Nama", segments: ["名", "字"], segPinyin: ["míng", "zi"], exHanzi: "你的同学叫什么名字？", exPinyin: "Nǐ de tóngxué jiào shénme míngzi?", exMeaning: "Siapa nama teman sekolahmu?", accent: "sky" },
+      { id: 20, category: "Kosakata Baru", visual: "👩‍🍳", hanzi: "做", pinyin: "zuò", meaning: "Membuat / Melakukan", segments: ["做"], segPinyin: ["zuò"], exHanzi: "这个蛋糕一定是妈妈做的。", exPinyin: "Zhè gè dàngāo yīdìng shì māma zuò de.", exMeaning: "Kue ini pasti ibu yang membuatnya.", accent: "pink" },
+      { id: 21, category: "Kosakata Baru", visual: "☝️", hanzi: "只", pinyin: "zhǐ", meaning: "Hanya / Cuma", segments: ["只"], segPinyin: ["zhǐ"], exHanzi: "因为只有她会做蛋糕。", exPinyin: "Yīnwèi zhǐyǒu tā huì zuò dàngāo.", exMeaning: "Karena hanya dia yang bisa membuat kue.", accent: "amber" },
+      { id: 22, category: "Kosakata Baru", visual: "🙋", hanzi: "要", pinyin: "yào", meaning: "Mau / Harus / Akan", segments: ["要"], segPinyin: ["yào"], exHanzi: "你要多喝水，才会健康。", exPinyin: "Nǐ yào duō hē shuǐ, cái huì jiànkāng.", exMeaning: "Kamu harus banyak minum air, barulah sehat.", accent: "teal" },
+      { id: 23, category: "Kosakata Baru", visual: "👇", hanzi: "这", pinyin: "zhè", meaning: "Ini", segments: ["这"], segPinyin: ["zhè"], exHanzi: "这件衣服不大也不小。", exPinyin: "Zhè jiàn yīfu bù dà yě bù xiǎo.", exMeaning: "Baju ini tidak besar dan tidak kecil.", accent: "orange" },
+      { id: 24, category: "Kosakata Baru", visual: "1️⃣", hanzi: "个", pinyin: "gè", meaning: "Kata satuan umum (buah / orang)", segments: ["个"], segPinyin: ["gè"], exHanzi: "这个蛋糕一定是妈妈做的。", exPinyin: "Zhè gè dàngāo yīdìng shì māma zuò de.", exMeaning: "Kue ini pasti ibu yang membuatnya.", accent: "pink" },
+      { id: 25, category: "Kosakata Baru", visual: "👕", hanzi: "件", pinyin: "jiàn", meaning: "Kata satuan (pakaian / baju)", segments: ["件"], segPinyin: ["jiàn"], exHanzi: "椅子上有一件红色的新衣服。", exPinyin: "Yǐzi shàng yǒu yī jiàn hóng sè de xīn yīfu.", exMeaning: "Di atas kursi ada sehelai baju baru berwarna merah.", accent: "sky" },
+      { id: 26, category: "Kosakata Baru", visual: "👖", hanzi: "条", pinyin: "tiáo", meaning: "Kata satuan (celana / rok / benda panjang)", segments: ["条"], segPinyin: ["tiáo"], exHanzi: "妹妹有一条蓝色的裙子。", exPinyin: "Mèimei yǒu yī tiáo lán sè de qúnzi.", exMeaning: "Adik perempuan mempunyai sehelai rok biru.", accent: "purple" },
+      { id: 27, category: "Kosakata Baru", visual: "🖊️", hanzi: "支", pinyin: "zhī", meaning: "Kata satuan (pensil / benda panjang tipis)", segments: ["支"], segPinyin: ["zhī"], exHanzi: "我有五支铅笔。", exPinyin: "Wǒ yǒu wǔ zhī qiānbǐ.", exMeaning: "Aku mempunyai lima batang pensil.", accent: "emerald" },
+      { id: 28, category: "Kosakata Baru", visual: "✏️", hanzi: "铅笔", pinyin: "qiānbǐ", meaning: "Pensil", segments: ["铅", "笔"], segPinyin: ["qiān", "bǐ"], exHanzi: "我有五支铅笔。", exPinyin: "Wǒ yǒu wǔ zhī qiānbǐ.", exMeaning: "Aku mempunyai lima batang pensil.", accent: "amber" },
+      { id: 29, category: "Kosakata Baru", visual: "📅", hanzi: "每天", pinyin: "měitiān", meaning: "Setiap hari", segments: ["每", "天"], segPinyin: ["měi", "tiān"], exHanzi: "爸爸每天坐火车去上班。", exPinyin: "Bàba měitiān zuò huǒchē qù shàngbān.", exMeaning: "Ayah setiap hari naik kereta api pergi bekerja.", accent: "orange" },
 
-      // === KATEGORI 2: KATA KERJA & KEGIATAN ===
-      { id: 15, category: "Kata Kerja & Kegiatan", visual: "📖", hanzi: "看书", pinyin: "kàn shū", meaning: "Membaca buku", exHanzi: "我的同学大卫很喜欢看书。", exPinyin: "Wǒ de tóngxué Dàwèi hěn xǐhuan kàn shū.", exMeaning: "Teman sekelasku David sangat suka membaca buku.", border: "border-sky-400" },
-      { id: 16, category: "Kata Kerja & Kegiatan", visual: "📺", hanzi: "看电视", pinyin: "kàn diànshì", meaning: "Menonton televisi", exHanzi: "晚上爸爸在客厅看电视。", exPinyin: "Wǎnshang bàba zài kètīng kàn diànshì.", exMeaning: "Malam hari ayah menonton TV di ruang tamu.", border: "border-indigo-400" },
-      { id: 17, category: "Kata Kerja & Kegiatan", visual: "🎬", hanzi: "看电影", pinyin: "kàn diànyǐng", meaning: "Menonton film", exHanzi: "周末我们一起去看电影。", exPinyin: "Zhōumò wǒmen yīqǐ qù kàn diànyǐng.", exMeaning: "Akhir pekan kita bersama-sama pergi menonton film.", border: "border-purple-400" },
-      { id: 18, category: "Kata Kerja & Kegiatan", visual: "📱", hanzi: "看手机", pinyin: "kàn shǒujī", meaning: "Melihat ponsel / HP", exHanzi: "小孩子不能看手机太久。", exPinyin: "Xiǎo háizi bù néng kàn shǒujī tài jiǔ.", exMeaning: "Anak-anak tidak boleh melihat ponsel terlalu lama.", border: "border-pink-400" },
-      { id: 19, category: "Kata Kerja & Kegiatan", visual: "🏊", hanzi: "游泳", pinyin: "yóuyǒng", meaning: "Berenang", exHanzi: "妹妹会不会游泳？", exPinyin: "Mèimei huì bù huì yóuyǒng?", exMeaning: "Apakah adik perempuan bisa berenang?", border: "border-cyan-400" },
-      { id: 20, category: "Kata Kerja & Kegiatan", visual: "🚶", hanzi: "走路", pinyin: "zǒulù", meaning: "Berjalan kaki", exHanzi: "学校很近，我每天走路去学校。", exPinyin: "Xuéxiào hěn jìn, wǒ měitiān zǒulù qù xuéxiào.", exMeaning: "Sekolah sangat dekat, aku setiap hari berjalan kaki ke sekolah.", border: "border-emerald-400" },
-      { id: 21, category: "Kata Kerja & Kegiatan", visual: "🎧", hanzi: "听音乐", pinyin: "tīng yīnyuè", meaning: "Mendengarkan musik", exHanzi: "姐姐在房间里听音乐。", exPinyin: "Jiějie zài fángjiān lǐ tīng yīnyuè.", exMeaning: "Kakak perempuan mendengarkan musik di dalam kamar.", border: "border-violet-400" },
-      { id: 22, category: "Kata Kerja & Kegiatan", visual: "🤒", hanzi: "生病", pinyin: "shēngbìng", meaning: "Sakit", exHanzi: "爷爷生病了，我们要去看他。", exPinyin: "Yéye shēngbìng le, wǒmen yào qù kàn tā.", exMeaning: "Kakek sedang sakit, kami harus pergi menjenguknya.", border: "border-rose-400" },
-      { id: 23, category: "Kata Kerja & Kegiatan", visual: "🏠", hanzi: "回家", pinyin: "huíjiā", meaning: "Pulang ke rumah", exHanzi: "今天中午回家的时候，我看见一件新衣服。", exPinyin: "Jīntiān zhōngwǔ huíjiā de shíhou, wǒ kànjiàn yī jiàn xīn yīfu.", exMeaning: "Siang hari ini saat pulang ke rumah, aku melihat sehelai baju baru.", border: "border-amber-400" },
-      { id: 24, category: "Kata Kerja & Kegiatan", visual: "⚽", hanzi: "踢足球", pinyin: "tī zúqiú", meaning: "Bermain sepak bola", exHanzi: "因为下雨了，所以我们不能去踢足球。", exPinyin: "Yīnwèi xiàyǔ le, suǒyǐ wǒmen bù néng qù tī zúqiú.", exMeaning: "Karena turun hujan, jadi kita tidak bisa bermain sepak bola.", border: "border-green-500" },
-      { id: 25, category: "Kata Kerja & Kegiatan", visual: "🥘", hanzi: "做饭", pinyin: "zuòfàn", meaning: "Memasak", exHanzi: "妈妈做饭的时候，我在看书。", exPinyin: "Māma zuòfàn de shíhou, wǒ zài kàn shū.", exMeaning: "Pada saat ibu memasak, aku sedang membaca buku.", border: "border-orange-400" },
-      { id: 26, category: "Kata Kerja & Kegiatan", visual: "💼", hanzi: "上班", pinyin: "shàngbān", meaning: "Pergi bekerja", exHanzi: "爸爸每天坐汽车去上班。", exPinyin: "Bàba měitiān zuò qìchē qù shàngbān.", exMeaning: "Ayah setiap hari naik mobil pergi bekerja.", border: "border-blue-500" },
+      // === 2. BENDA, MAKANAN & TEMPAT ===
+      { id: 30, category: "Benda & Tempat", visual: "🎂", hanzi: "蛋糕", pinyin: "dàngāo", meaning: "Kue (kue tart)", segments: ["蛋", "糕"], segPinyin: ["dàn", "gāo"], exHanzi: "妈妈买了六块蛋糕。", exPinyin: "Māma mǎi le liù kuài dàngāo.", exMeaning: "Ibu membeli enam potong kue.", accent: "pink" },
+      { id: 31, category: "Benda & Tempat", visual: "🍳", hanzi: "厨房", pinyin: "chúfáng", meaning: "Dapur", segments: ["厨", "房"], segPinyin: ["chú", "fáng"], exHanzi: "她把蛋糕放在厨房里的桌子上。", exPinyin: "Tā bǎ dàngāo fàng zài chúfáng lǐ de zhuōzi shàng.", exMeaning: "Dia meletakkan kue di atas meja di dalam dapur.", accent: "amber" },
+      { id: 32, category: "Benda & Tempat", visual: "🪵", hanzi: "桌子", pinyin: "zhuōzi", meaning: "Meja", segments: ["桌", "子"], segPinyin: ["zhuō", "zi"], exHanzi: "桌子上的蛋糕少了一块。", exPinyin: "Zhuōzi shàng de dàngāo shǎo le yī kuài.", exMeaning: "Kue di atas meja berkurang satu potong.", accent: "orange" },
+      { id: 33, category: "Benda & Tempat", visual: "🪑", hanzi: "椅子", pinyin: "yǐzi", meaning: "Kursi", segments: ["椅", "子"], segPinyin: ["yǐ", "zi"], exHanzi: "我看见椅子上有一件新衣服。", exPinyin: "Wǒ kànjiàn yǐzi shàng yǒu yī jiàn xīn yīfu.", exMeaning: "Aku melihat di atas kursi ada sehelai baju baru.", accent: "teal" },
+      { id: 34, category: "Benda & Tempat", visual: "🛏️", hanzi: "床上", pinyin: "chuáng shàng", meaning: "Di atas tempat tidur", segments: ["床", "上"], segPinyin: ["chuáng", "shàng"], exHanzi: "床上有一条蓝色的裙子。", exPinyin: "Chuáng shàng yǒu yī tiáo lán sè de qúnzi.", exMeaning: "Di atas tempat tidur ada sehelai rok biru.", accent: "sky" },
+      { id: 35, category: "Benda & Tempat", visual: "🤝", hanzi: "朋友", pinyin: "péngyou", meaning: "Teman", segments: ["朋", "友"], segPinyin: ["péng", "you"], exHanzi: "今天我的朋友来我家。", exPinyin: "Jīntiān wǒ de péngyou lái wǒ jiā.", exMeaning: "Hari ini temanku datang ke rumahku.", accent: "emerald" },
+      { id: 36, category: "Benda & Tempat", visual: "🎒", hanzi: "同学", pinyin: "tóngxué", meaning: "Teman sekolah / sekelas", segments: ["同", "学"], segPinyin: ["tóng", "xué"], exHanzi: "我的同学迈克尔很喜欢看电影。", exPinyin: "Wǒ de tóngxué Màikè'ěr hěn xǐhuan kàn diànyǐng.", exMeaning: "Teman sekelasku Michael sangat suka menonton film.", accent: "indigo" },
+      { id: 37, category: "Benda & Tempat", visual: "🎬", hanzi: "电影院", pinyin: "diànyǐngyuàn", meaning: "Bioskop", segments: ["电", "影", "院"], segPinyin: ["diàn", "yǐng", "yuàn"], exHanzi: "今天电影院又有了新电影。", exPinyin: "Jīntiān diànyǐngyuàn yòu yǒu le xīn diànyǐng.", exMeaning: "Hari ini bioskop ada film baru lagi.", accent: "purple" },
+      { id: 38, category: "Benda & Tempat", visual: "👗", hanzi: "裙子", pinyin: "qúnzi", meaning: "Rok", segments: ["裙", "子"], segPinyin: ["qún", "zi"], exHanzi: "这是一条漂亮的裙子。", exPinyin: "Zhè shì yī tiáo piàoliang de qúnzi.", exMeaning: "Ini adalah sehelai rok yang cantik.", accent: "pink" },
+      { id: 39, category: "Benda & Tempat", visual: "👖", hanzi: "裤子", pinyin: "kùzi", meaning: "Celana", segments: ["裤", "子"], segPinyin: ["kù", "zi"], exHanzi: "哥哥穿了一条新裤子。", exPinyin: "Gēge chuān le yī tiáo xīn kùzi.", exMeaning: "Kakak laki-laki memakai celana baru.", accent: "sky" },
+      { id: 40, category: "Benda & Tempat", visual: "🧢", hanzi: "帽子", pinyin: "màozi", meaning: "Topi", segments: ["帽", "子"], segPinyin: ["mào", "zi"], exHanzi: "弟弟戴了一顶帽子。", exPinyin: "Dìdi dài le yī dǐng màozi.", exMeaning: "Adik laki-laki memakai sebuah topi.", accent: "amber" },
+      { id: 41, category: "Benda & Tempat", visual: "🍌", hanzi: "香蕉", pinyin: "xiāngjiāo", meaning: "Pisang", segments: ["香", "蕉"], segPinyin: ["xiāng", "jiāo"], exHanzi: "妈妈买了香蕉和苹果。", exPinyin: "Māma mǎi le xiāngjiāo hé píngguǒ.", exMeaning: "Ibu membeli pisang dan apel.", accent: "amber" },
+      { id: 42, category: "Benda & Tempat", visual: "🍎", hanzi: "苹果", pinyin: "píngguǒ", meaning: "Apel", segments: ["苹", "果"], segPinyin: ["píng", "guǒ"], exHanzi: "你喜不喜欢吃苹果？", exPinyin: "Nǐ xǐ bù xǐhuan chī píngguǒ?", exMeaning: "Apakah kamu suka makan apel?", accent: "rose" },
+      { id: 43, category: "Benda & Tempat", visual: "🍦", hanzi: "冰淇淋", pinyin: "bīngqílín", meaning: "Es krim", segments: ["冰", "淇", "淋"], segPinyin: ["bīng", "qí", "lín"], exHanzi: "弟弟很喜欢吃冰淇淋。", exPinyin: "Dìdi hěn xǐhuan chī bīngqílín.", exMeaning: "Adik laki-laki sangat suka makan es krim.", accent: "cyan" },
 
-      // === KATEGORI 3: TRANSPORTASI ===
-      { id: 27, category: "Transportasi", visual: "✈️", hanzi: "坐飞机", pinyin: "zuò fēijī", meaning: "Naik pesawat terbang", exHanzi: "哥哥想坐飞机去北京。", exPinyin: "Gēge xiǎng zuò fēijī qù Běijīng.", exMeaning: "Kakak laki-laki ingin naik pesawat pergi ke Beijing.", border: "border-sky-500" },
-      { id: 28, category: "Transportasi", visual: "🚆", hanzi: "坐火车", pinyin: "zuò huǒchē", meaning: "Naik kereta api", exHanzi: "坐飞机比坐火车快。", exPinyin: "Zuò fēijī bǐ zuò huǒchē kuài.", exMeaning: "Naik pesawat lebih cepat daripada naik kereta api.", border: "border-indigo-500" },
-      { id: 29, category: "Transportasi", visual: "🚗", hanzi: "坐汽车", pinyin: "zuò qìchē", meaning: "Naik mobil", exHanzi: "我们可以坐汽车去学校。", exPinyin: "Wǒmen kěyǐ zuò qìchē qù xuéxiào.", exMeaning: "Kita bisa naik mobil pergi ke sekolah.", border: "border-rose-500" },
-      { id: 30, category: "Transportasi", visual: "🚲", hanzi: "骑自行车", pinyin: "qí zìxíngchē", meaning: "Mengendarai sepeda", exHanzi: "弟弟想骑自行车去学校。", exPinyin: "Dìdi xiǎng qí zìxíngchē qù xuéxiào.", exMeaning: "Adik laki-laki ingin naik sepeda pergi ke sekolah.", border: "border-emerald-500" },
+      // === 3. KATA KERJA & KEGIATAN ===
+      { id: 44, category: "Kata Kerja", visual: "🎥", hanzi: "看电影", pinyin: "kàn diànyǐng", meaning: "Menonton film", segments: ["看", "电", "影"], segPinyin: ["kàn", "diàn", "yǐng"], exHanzi: "迈克尔很喜欢看电影。", exPinyin: "Màikè'ěr hěn xǐhuan kàn diànyǐng.", exMeaning: "Michael sangat suka menonton film.", accent: "purple" },
+      { id: 45, category: "Kata Kerja", visual: "📖", hanzi: "看书", pinyin: "kàn shū", meaning: "Membaca buku", segments: ["看", "书"], segPinyin: ["kàn", "shū"], exHanzi: "弟弟在房间里看书。", exPinyin: "Dìdi zài fángjiān lǐ kàn shū.", exMeaning: "Adik laki-laki membaca buku di dalam kamar.", accent: "sky" },
+      { id: 46, category: "Kata Kerja", visual: "🎧", hanzi: "听音乐", pinyin: "tīng yīnyuè", meaning: "Mendengarkan musik", segments: ["听", "音", "乐"], segPinyin: ["tīng", "yīn", "yuè"], exHanzi: "弟弟在房间里听音乐。", exPinyin: "Dìdi zài fángjiān lǐ tīng yīnyuè.", exMeaning: "Adik laki-laki mendengarkan musik di dalam kamar.", accent: "indigo" },
+      { id: 47, category: "Kata Kerja", visual: "🤒", hanzi: "生病", pinyin: "shēngbìng", meaning: "Sakit", segments: ["生", "病"], segPinyin: ["shēng", "bìng"], exHanzi: "奶奶生病了，我们要去看她。", exPinyin: "Nǎinai shēngbìng le, wǒmen yào qù kàn tā.", exMeaning: "Nenek sedang sakit, kami mau pergi menjenguknya.", accent: "rose" },
+      { id: 48, category: "Kata Kerja", visual: "🏡", hanzi: "回家", pinyin: "huíjiā", meaning: "Pulang ke rumah", segments: ["回", "家"], segPinyin: ["huí", "jiā"], exHanzi: "因为今天很晚了，所以我要回家了。", exPinyin: "Yīnwèi jīntiān hěn wǎn le, suǒyǐ wǒ yào huíjiā le.", exMeaning: "Karena hari ini sudah sangat larut, jadi aku harus pulang ke rumah.", accent: "emerald" },
+      { id: 49, category: "Kata Kerja", visual: "⚽", hanzi: "踢足球", pinyin: "tī zúqiú", meaning: "Bermain sepak bola", segments: ["踢", "足", "球"], segPinyin: ["tī", "zú", "qiú"], exHanzi: "我没有去踢足球。", exPinyin: "Wǒ méiyǒu qù tī zúqiú.", exMeaning: "Aku tidak pergi bermain sepak bola.", accent: "emerald" },
+      { id: 50, category: "Kata Kerja", visual: "🏊", hanzi: "游泳", pinyin: "yóuyǒng", meaning: "Berenang", segments: ["游", "泳"], segPinyin: ["yóu", "yǒng"], exHanzi: "因为下雨了，所以没有去游泳。", exPinyin: "Yīnwèi xiàyǔ le, suǒyǐ méiyǒu qù yóuyǒng.", exMeaning: "Karena turun hujan, jadi tidak pergi berenang.", accent: "cyan" },
+      { id: 51, category: "Kata Kerja", visual: "🎤", hanzi: "唱歌", pinyin: "chànggē", meaning: "Bernyanyi", segments: ["唱", "歌"], segPinyin: ["chàng", "gē"], exHanzi: "你会唱歌吗？", exPinyin: "Nǐ huì chànggē ma?", exMeaning: "Apakah kamu bisa bernyanyi?", accent: "pink" },
+      { id: 52, category: "Kata Kerja", visual: "🚶", hanzi: "走路", pinyin: "zǒulù", meaning: "Berjalan kaki", segments: ["走", "路"], segPinyin: ["zǒu", "lù"], exHanzi: "弟弟会走路了。", exPinyin: "Dìdi huì zǒulù le.", exMeaning: "Adik laki-laki sudah bisa berjalan kaki.", accent: "amber" },
+      { id: 53, category: "Kata Kerja", visual: "💼", hanzi: "上班", pinyin: "shàngbān", meaning: "Pergi bekerja / Masuk kerja", segments: ["上", "班"], segPinyin: ["shàng", "bān"], exHanzi: "爸爸每天坐火车去上班。", exPinyin: "Bàba měitiān zuò huǒchē qù shàngbān.", exMeaning: "Ayah setiap hari naik kereta api pergi bekerja.", accent: "indigo" },
 
-      // === KATEGORI 4: KATA SIFAT & TATA BAHASA ===
-      { id: 31, category: "Sifat & Tata Bahasa", visual: "⚡", hanzi: "快", pinyin: "kuài", meaning: "Cepat", exHanzi: "哥哥，你骑车慢点儿，别太快！", exPinyin: "Gēge, nǐ qíchē màn diǎnr, bié tài kuài!", exMeaning: "Kakak, naik sepedanya pelan sedikit, jangan terlalu cepat!", border: "border-amber-500" },
-      { id: 32, category: "Sifat & Tata Bahasa", visual: "🐢", hanzi: "慢", pinyin: "màn", meaning: "Lambat / Pelan", exHanzi: "坐汽车比坐飞机慢。", exPinyin: "Zuò qìchē bǐ zuò fēijī màn.", exMeaning: "Naik mobil lebih lambat dibandingkan naik pesawat.", border: "border-teal-500" },
-      { id: 33, category: "Sifat & Tata Bahasa", visual: "🏆", hanzi: "最", pinyin: "zuì", meaning: "Paling", exHanzi: "这本书最好看。", exPinyin: "Zhè běn shū zuì hǎokàn.", exMeaning: "Buku ini paling bagus dibaca.", border: "border-yellow-500" },
-      { id: 34, category: "Sifat & Tata Bahasa", visual: "✅", hanzi: "对", pinyin: "duì", meaning: "Benar / Kepada", exHanzi: "妈妈对我说：“你答对了！”", exPinyin: "Māma duì wǒ shuō: 'Nǐ dá duì le!'", exMeaning: "Ibu berkata kepadaku: 'Jawabanmu benar!'", border: "border-emerald-500" },
-      { id: 35, category: "Sifat & Tata Bahasa", visual: "👌", hanzi: "可以", pinyin: "kěyǐ", meaning: "Boleh / Dapat", exHanzi: "你可以帮我把那个苹果给我吗？", exPinyin: "Nǐ kěyǐ bāng wǒ bǎ nàge píngguǒ gěi wǒ ma?", exMeaning: "Bolehkah kamu membantuku memberikan apel itu kepadaku?", border: "border-sky-400" },
-      { id: 36, category: "Sifat & Tata Bahasa", visual: "💡", hanzi: "应该", pinyin: "yīnggāi", meaning: "Seharusnya / Sebaiknya", exHanzi: "明天有考试，我应该在家看书。", exPinyin: "Míngtiān yǒu kǎoshì, wǒ yīnggāi zài jiā kàn shū.", exMeaning: "Besok ada ujian, aku seharusnya membaca buku di rumah.", border: "border-orange-400" },
-      { id: 37, category: "Sifat & Tata Bahasa", visual: "🎯", hanzi: "一定", pinyin: "yīdìng", meaning: "Pasti / Tentu saja", exHanzi: "明天是星期天，爸爸一定在家。", exPinyin: "Míngtiān shì Xīngqītiān, bàba yīdìng zài jiā.", exMeaning: "Besok adalah hari Minggu, ayah pasti ada di rumah.", border: "border-red-400" },
-      { id: 38, category: "Sifat & Tata Bahasa", visual: "⏰", hanzi: "时候", pinyin: "shíhou", meaning: "Saat / Waktu", exHanzi: "爸爸回家的时候看见了一只小猫。", exPinyin: "Bàba huíjiā de shíhou kànjiàn le yī zhī xiǎo māo.", exMeaning: "Pada saat ayah pulang ke rumah, terlihat seekor kucing kecil.", border: "border-indigo-400" },
-      { id: 39, category: "Sifat & Tata Bahasa", visual: "🔗", hanzi: "因为……所以……", pinyin: "yīnwèi... suǒyǐ...", meaning: "Karena... maka / jadi...", exHanzi: "因为今天生病了，所以我没有去学校。", exPinyin: "Yīnwèi jīntiān shēngbìng le, suǒyǐ wǒ méiyǒu qù xuéxiào.", exMeaning: "Karena hari ini sakit, jadi aku tidak pergi ke sekolah.", border: "border-purple-500" },
-      { id: 40, category: "Sifat & Tata Bahasa", visual: "😓", hanzi: "累", pinyin: "lèi", meaning: "Lelah / Capek", exHanzi: "踢了足球以后，我觉得很累。", exPinyin: "Tī le zúqiú yǐhòu, wǒ juéde hěn lèi.", exMeaning: "Setelah bermain sepak bola, aku merasa sangat lelah.", border: "border-amber-600" },
-      { id: 41, category: "Sifat & Tata Bahasa", visual: "😋", hanzi: "饿", pinyin: "è", meaning: "Lapar", exHanzi: "踢了足球以后，我觉得很饿。", exPinyin: "Tī le zúqiú yǐhòu, wǒ juéde hěn è.", exMeaning: "Setelah bermain sepak bola, aku merasa sangat lapar.", border: "border-orange-500" },
-      { id: 42, category: "Sifat & Tata Bahasa", visual: "🏷️", hanzi: "便宜", pinyin: "piányi", meaning: "Murah", exHanzi: "坐汽车比坐飞机便宜。", exPinyin: "Zuò qìchē bǐ zuò fēijī piányi.", exMeaning: "Naik mobil lebih murah dibandingkan naik pesawat.", border: "border-lime-500" },
-      { id: 43, category: "Sifat & Tata Bahasa", visual: "💎", hanzi: "贵", pinyin: "guì", meaning: "Mahal", exHanzi: "坐飞机比坐汽车贵。", exPinyin: "Zuò fēijī bǐ zuò qìchē guì.", exMeaning: "Naik pesawat lebih mahal dibandingkan naik mobil.", border: "border-pink-500" },
-      { id: 44, category: "Sifat & Tata Bahasa", visual: "❓", hanzi: "能不能", pinyin: "néng bù néng", meaning: "Bisakah / Bolehkah", exHanzi: "今天我们能不能去爷爷家？", exPinyin: "Jīntiān wǒmen néng bù néng qù yéye jiā?", exMeaning: "Hari ini apakah kita bisa pergi ke rumah kakek?", border: "border-cyan-500" },
-      { id: 45, category: "Sifat & Tata Bahasa", visual: "🍰", hanzi: "好不好吃", pinyin: "hǎo bù hǎo chī", meaning: "Enak atau tidak (dimakan)", exHanzi: "这块蛋糕好不好吃？", exPinyin: "Zhè kuài dàngāo hǎo bù hǎo chī?", exMeaning: "Apakah potong kue ini enak dimakan?", border: "border-rose-400" },
+      // === 4. TRANSPORTASI ===
+      { id: 54, category: "Transportasi", visual: "✈️", hanzi: "坐飞机", pinyin: "zuò fēijī", meaning: "Naik pesawat terbang", segments: ["坐", "飞", "机"], segPinyin: ["zuò", "fēi", "jī"], exHanzi: "我们可以坐飞机去北京。", exPinyin: "Wǒmen kěyǐ zuò fēijī qù Běijīng.", exMeaning: "Kita bisa naik pesawat pergi ke Beijing.", accent: "sky" },
+      { id: 55, category: "Transportasi", visual: "🚆", hanzi: "坐火车", pinyin: "zuò huǒchē", meaning: "Naik kereta api", segments: ["坐", "火", "车"], segPinyin: ["zuò", "huǒ", "chē"], exHanzi: "坐火车比坐汽车快。", exPinyin: "Zuò huǒchē bǐ zuò qìchē kuài.", exMeaning: "Naik kereta api lebih cepat dibandingkan naik mobil.", accent: "orange" },
+      { id: 56, category: "Transportasi", visual: "🚗", hanzi: "坐汽车", pinyin: "zuò qìchē", meaning: "Naik mobil", segments: ["坐", "汽", "车"], segPinyin: ["zuò", "qì", "chē"], exHanzi: "坐飞机比坐汽车贵。", exPinyin: "Zuò fēijī bǐ zuò qìchē guì.", exMeaning: "Naik pesawat lebih mahal dibandingkan naik mobil.", accent: "rose" },
+      { id: 57, category: "Transportasi", visual: "🚲", hanzi: "骑自行车", pinyin: "qí zìxíngchē", meaning: "Mengendarai sepeda", segments: ["骑", "自", "行", "车"], segPinyin: ["qí", "zì", "xíng", "chē"], exHanzi: "姐姐想骑自行车去学校。", exPinyin: "Jiějie xiǎng qí zìxíngchē qù xuéxiào.", exMeaning: "Kakak perempuan ingin mengendarai sepeda pergi ke sekolah.", accent: "emerald" },
 
-      // === KATEGORI 5: KALIMAT LENGKAP (连词成句) ===
-      { id: 46, category: "Kalimat Lengkap", visual: "👧🍎", hanzi: "妹妹有三个苹果。", pinyin: "Mèimei yǒu sān gè píngguǒ.", meaning: "Adik perempuan mempunyai tiga buah apel.", exHanzi: "妹妹 + 有 + 三个 + 苹果。", exPinyin: "Subjek + Kata Kerja + Jumlah + Objek", exMeaning: "Susunan kalimat kepemilikan yang benar.", border: "border-rose-500" },
-      { id: 47, category: "Kalimat Lengkap", visual: "🏊❓", hanzi: "你会游泳吗？", pinyin: "Nǐ huì yóuyǒng ma?", meaning: "Apakah kamu bisa berenang?", exHanzi: "你 + 会 + 游泳 + 吗？", exPinyin: "Subjek + Kata Bantu + Kata Kerja + Partikel Tanya", exMeaning: "Susunan kalimat tanya kemampuan yang benar.", border: "border-sky-500" },
-      { id: 48, category: "Kalimat Lengkap", visual: "🤒🏫", hanzi: "因为生病了，所以没去学校。", pinyin: "Yīnwèi shēngbìng le, suǒyǐ méi qù xuéxiào.", meaning: "Karena sakit, jadi tidak pergi ke sekolah.", exHanzi: "因为 + 生病了 + 所以 + 没去学校。", exPinyin: "Kata Hubung Sebab + Sebab + Kata Hubung Akibat + Akibat", exMeaning: "Susunan kalimat sebab-akibat yang benar.", border: "border-purple-500" },
-      { id: 49, category: "Kalimat Lengkap", visual: "👩🚗", hanzi: "妈妈每天坐汽车去上班。", pinyin: "Māma měitiān zuò qìchē qù shàngbān.", meaning: "Ibu setiap hari naik mobil pergi bekerja.", exHanzi: "妈妈 + 每天 + 坐汽车 + 去上班。", exPinyin: "Subjek + Keterangan Waktu + Transportasi + Tujuan", exMeaning: "Susunan kalimat keterangan waktu & transportasi.", border: "border-amber-500" },
-      { id: 50, category: "Kalimat Lengkap", visual: "👦✈️", hanzi: "哥哥想坐飞机去北京。", pinyin: "Gēge xiǎng zuò fēijī qù Běijīng.", meaning: "Kakak laki-laki ingin naik pesawat pergi ke Beijing.", exHanzi: "哥哥 + 想 + 坐飞机 + 去北京。", exPinyin: "Subjek + Keinginan + Transportasi + Tujuan", exMeaning: "Susunan kalimat keinginan bepergian.", border: "border-emerald-500" }
+      // === 5. KATA SIFAT, POLA TANYA & TATA BAHASA ===
+      { id: 58, category: "Sifat & Tata Bahasa", visual: "🔗", hanzi: "因为……所以……", pinyin: "yīnwèi... suǒyǐ...", meaning: "Karena... maka / jadi...", segments: ["因", "为", "所", "以"], segPinyin: ["yīn", "wèi", "suǒ", "yǐ"], exHanzi: "因为今天下雨了，所以我没有去踢足球。", exPinyin: "Yīnwèi jīntiān xiàyǔ le, suǒyǐ wǒ méiyǒu qù tī zúqiú.", exMeaning: "Karena hari ini turun hujan, jadi aku tidak pergi bermain sepak bola.", accent: "amber" },
+      { id: 59, category: "Sifat & Tata Bahasa", visual: "👍", hanzi: "应该", pinyin: "yīnggāi", meaning: "Seharusnya / Sebaiknya", segments: ["应", "该"], segPinyin: ["yīng", "gāi"], exHanzi: "你应该要多喝水，才会健康。", exPinyin: "Nǐ yīnggāi yào duō hē shuǐ, cái huì jiànkāng.", exMeaning: "Kamu seharusnya banyak minum air, barulah sehat.", accent: "emerald" },
+      { id: 60, category: "Sifat & Tata Bahasa", visual: "💯", hanzi: "一定", pinyin: "yīdìng", meaning: "Pasti / Tentu saja", segments: ["一", "定"], segPinyin: ["yī", "dìng"], exHanzi: "这个蛋糕一定是妈妈做的。", exPinyin: "Zhè gè dàngāo yīdìng shì māma zuò de.", exMeaning: "Kue ini pasti ibu yang membuatnya.", accent: "purple" },
+      { id: 61, category: "Sifat & Tata Bahasa", visual: "👌", hanzi: "可以", pinyin: "kěyǐ", meaning: "Boleh / Dapat", segments: ["可", "以"], segPinyin: ["kě", "yǐ"], exHanzi: "你可以帮我把那本书给我吗？", exPinyin: "Nǐ kěyǐ bāng wǒ bǎ nà běn shū gěi wǒ ma?", exMeaning: "Bolehkah kamu membantuku memberikan buku itu kepadaku?", accent: "sky" },
+      { id: 62, category: "Sifat & Tata Bahasa", visual: "⚡", hanzi: "快", pinyin: "kuài", meaning: "Cepat", segments: ["快"], segPinyin: ["kuài"], exHanzi: "坐火车比坐汽车快。", exPinyin: "Zuò huǒchē bǐ zuò qìchē kuài.", exMeaning: "Naik kereta api lebih cepat dibandingkan naik mobil.", accent: "orange" },
+      { id: 63, category: "Sifat & Tata Bahasa", visual: "🐢", hanzi: "慢", pinyin: "màn", meaning: "Lambat / Pelan", segments: ["慢"], segPinyin: ["màn"], exHanzi: "爸爸，您开车慢点儿！", exPinyin: "Bàba, nín kāichē màn diǎnr!", exMeaning: "Ayah, menyetir mobilnya pelan sedikit!", accent: "teal" },
+      { id: 64, category: "Sifat & Tata Bahasa", visual: "✅", hanzi: "对", pinyin: "duì", meaning: "Benar / Kepada", segments: ["对"], segPinyin: ["duì"], exHanzi: "妈妈对我说。", exPinyin: "Māma duì wǒ shuō.", exMeaning: "Ibu berkata kepadaku.", accent: "emerald" },
+      { id: 65, category: "Sifat & Tata Bahasa", visual: "🏷️", hanzi: "便宜", pinyin: "piányi", meaning: "Murah", segments: ["便", "宜"], segPinyin: ["pián", "yi"], exHanzi: "坐汽车比坐飞机便宜。", exPinyin: "Zuò qìchē bǐ zuò fēijī piányi.", exMeaning: "Naik mobil lebih murah dibandingkan naik pesawat.", accent: "emerald" },
+      { id: 66, category: "Sifat & Tata Bahasa", visual: "💎", hanzi: "贵", pinyin: "guì", meaning: "Mahal", segments: ["贵"], segPinyin: ["guì"], exHanzi: "坐飞机比坐汽车贵。", exPinyin: "Zuò fēijī bǐ zuò qìchē guì.", exMeaning: "Naik pesawat lebih mahal dibandingkan naik mobil.", accent: "rose" },
+      { id: 67, category: "Sifat & Tata Bahasa", visual: "😓", hanzi: "累", pinyin: "lèi", meaning: "Lelah / Capek", segments: ["累"], segPinyin: ["lèi"], exHanzi: "做了很多工作以后，我觉得很累。", exPinyin: "Zuò le hěn duō gōngzuò yǐhòu, wǒ juéde hěn lèi.", exMeaning: "Setelah melakukan banyak pekerjaan, aku merasa sangat lelah.", accent: "amber" },
+      { id: 68, category: "Sifat & Tata Bahasa", visual: "🍽️", hanzi: "饿", pinyin: "è", meaning: "Lapar", segments: ["饿"], segPinyin: ["è"], exHanzi: "我饿了，想吃蛋糕。", exPinyin: "Wǒ è le, xiǎng chī dàngāo.", exMeaning: "Aku lapar, ingin makan kue.", accent: "orange" },
+      { id: 69, category: "Sifat & Tata Bahasa", visual: "💪", hanzi: "健康", pinyin: "jiànkāng", meaning: "Sehat", segments: ["健", "康"], segPinyin: ["jiàn", "kāng"], exHanzi: "多喝水，才会健康。", exPinyin: "Duō hē shuǐ, cái huì jiànkāng.", exMeaning: "Banyak minum air, barulah sehat.", accent: "emerald" },
+      { id: 70, category: "Sifat & Tata Bahasa", visual: "❓", hanzi: "能不能", pinyin: "néng bù néng", meaning: "Bisakah / Bolehkah", segments: ["能", "不", "能"], segPinyin: ["néng", "bù", "néng"], exHanzi: "今天我们能不能去奶奶家？", exPinyin: "Jīntiān wǒmen néng bù néng qù nǎinai jiā?", exMeaning: "Hari ini apakah kita bisa pergi ke rumah nenek?", accent: "cyan" },
+      { id: 71, category: "Sifat & Tata Bahasa", visual: "🍰", hanzi: "好不好吃", pinyin: "hǎo bù hǎo chī", meaning: "Enak atau tidak (dimakan)", segments: ["好", "不", "好", "吃"], segPinyin: ["hǎo", "bù", "hǎo", "chī"], exHanzi: "这个面包好不好吃？", exPinyin: "Zhè gè miànbāo hǎo bù hǎo chī?", exMeaning: "Apakah roti ini enak dimakan?", accent: "pink" },
+      { id: 72, category: "Sifat & Tata Bahasa", visual: "❤️", hanzi: "喜不喜欢", pinyin: "xǐ bù xǐhuan", meaning: "Suka atau tidak suka", segments: ["喜", "不", "喜", "欢"], segPinyin: ["xǐ", "bù", "xǐ", "huan"], exHanzi: "你喜不喜欢吃苹果？", exPinyin: "Nǐ xǐ bù xǐhuan chī píngguǒ?", exMeaning: "Apakah kamu suka makan apel?", accent: "rose" },
+      { id: 73, category: "Sifat & Tata Bahasa", visual: "💭", hanzi: "想不想", pinyin: "xiǎng bù xiǎng", meaning: "Ingin atau tidak ingin", segments: ["想", "不", "想"], segPinyin: ["xiǎng", "bù", "xiǎng"], exHanzi: "你想不想吃苹果？", exPinyin: "Nǐ xiǎng bù xiǎng chī píngguǒ?", exMeaning: "Apakah kamu ingin makan apel?", accent: "purple" },
+
+      // === 6. KALIMAT PENDEK DARI PDF UJIAN & LATIHAN (DAPAT DIBACA SATU PER SATU) ===
+      { id: 74, category: "Kalimat Pendek PDF", visual: "🎂🕵️", hanzi: "谁拿了桌子上的蛋糕呢？", pinyin: "Shéi ná le zhuōzi shàng de dàngāo ne?", meaning: "Siapa yang mengambil kue di atas meja ya?", segments: ["谁", "拿了", "桌子上", "的", "蛋糕", "呢？"], segPinyin: ["Shéi", "ná le", "zhuōzi shàng", "de", "dàngāo", "ne"], exHanzi: "谁 + 拿了 + 桌子上的蛋糕 + 呢？", exPinyin: "Kata Tanya Siapa + Mengambil + Kue di Atas Meja + Partikel", exMeaning: "Kalimat dari Bacaan 1 (memakai kata 谁).", accent: "amber" },
+      { id: 75, category: "Kalimat Pendek PDF", visual: "🍰➖", hanzi: "桌子上的蛋糕少了一块。", pinyin: "Zhuōzi shàng de dàngāo shǎo le yī kuài.", meaning: "Kue di atas meja berkurang satu potong.", segments: ["桌子上", "的", "蛋糕", "少了", "一块。"], segPinyin: ["Zhuōzi shàng", "de", "dàngāo", "shǎo le", "yī kuài"], exHanzi: "桌子上的蛋糕 + 少了 + 一块。", exPinyin: "Kue di Atas Meja + Berkurang + Satu Potong", exMeaning: "Kalimat dari Bacaan 1 (memakai kata 少).", accent: "pink" },
+      { id: 76, category: "Kalimat Pendek PDF", visual: "🗺️🎂", hanzi: "妈妈把蛋糕放在哪儿？", pinyin: "Māma bǎ dàngāo fàng zài nǎr?", meaning: "Ibu meletakkan kue di mana?", segments: ["妈妈", "把", "蛋糕", "放在", "哪儿？"], segPinyin: ["Māma", "bǎ", "dàngāo", "fàng zài", "nǎr"], exHanzi: "妈妈 + 把蛋糕 + 放在 + 哪儿？", exPinyin: "Subjek + Objek Kue + Diletakkan di + Kata Tanya Di Mana", exMeaning: "Kalimat tanya lokasi dari soal No. 4 (memakai kata 哪儿).", accent: "sky" },
+      { id: 77, category: "Kalimat Pendek PDF", visual: "⏰🍰", hanzi: "要吃蛋糕的时候，妈妈对我说。", pinyin: "Yào chī dàngāo de shíhou, māma duì wǒ shuō.", meaning: "Saat hendak makan kue, ibu berkata kepadaku.", segments: ["要", "吃蛋糕", "的时候，", "妈妈", "对", "我说。"], segPinyin: ["Yào", "chī dàngāo", "de shíhou", "māma", "duì", "wǒ shuō"], exHanzi: "要 + 吃蛋糕 + 的时候 + 妈妈对我说。", exPinyin: "Hendak + Makan Kue + Pada Saat + Ibu Berkata Kepadaku", exMeaning: "Kalimat dari Bacaan 1 (memakai kata 要 dan 时候).", accent: "orange" },
+      { id: 78, category: "Kalimat Pendek PDF", visual: "🎬💭", hanzi: "他很想去看新电影。", pinyin: "Tā hěn xiǎng qù kàn xīn diànyǐng.", meaning: "Dia sangat ingin pergi menonton film baru.", segments: ["他", "很", "想", "去", "看", "新电影。"], segPinyin: ["Tā", "hěn", "xiǎng", "qù", "kàn", "xīn diànyǐng"], exHanzi: "他 + 很想 + 去 + 看新电影。", exPinyin: "Dia + Sangat Ingin + Pergi + Menonton Film Baru", exMeaning: "Kalimat dari Bacaan 2 (memakai kata 想 dan 去).", accent: "purple" },
+      { id: 79, category: "Kalimat Pendek PDF", visual: "↪️👵", hanzi: "我也很想去，但是今天要去奶奶家。", pinyin: "Wǒ yě hěn xiǎng qù, dànshì jīntiān yào qù nǎinai jiā.", meaning: "Aku juga sangat ingin pergi, tetapi hari ini mau pergi ke rumah nenek.", segments: ["我也", "很想", "去，", "但是", "今天", "要去", "奶奶家。"], segPinyin: ["Wǒ yě", "hěn xiǎng", "qù", "dànshì", "jīntiān", "yào qù", "nǎinai jiā"], exHanzi: "我也很想去 + 但是 + 今天要去奶奶家。", exPinyin: "Aku Juga Sangat Ingin Pergi + Tetapi + Hari Ini Mau ke Rumah Nenek", exMeaning: "Kalimat dari Bacaan 2 (memakai kata 想, 但是, dan 要).", accent: "rose" },
+      { id: 80, category: "Kalimat Pendek PDF", visual: "👕✨", hanzi: "这件衣服不大也不小。", pinyin: "Zhè jiàn yīfu bù dà yě bù xiǎo.", meaning: "Baju ini tidak besar dan tidak kecil.", segments: ["这", "件", "衣服", "不大", "也", "不小。"], segPinyin: ["Zhè", "jiàn", "yīfu", "bù dà", "yě", "bù xiǎo"], exHanzi: "这件 + 衣服 + 不大也不小。", exPinyin: "Ini (Satuan) + Baju + Tidak Besar Juga Tidak Kecil", exMeaning: "Kalimat dari Bacaan 3 (memakai kata 这 dan 件).", accent: "indigo" },
+      { id: 81, category: "Kalimat Pendek PDF", visual: "🌧️⚽", hanzi: "因为今天下雨了，所以我没有去踢足球。", pinyin: "Yīnwèi jīntiān xiàyǔ le, suǒyǐ wǒ méiyǒu qù tī zúqiú.", meaning: "Karena hari ini turun hujan, jadi aku tidak pergi bermain sepak bola.", segments: ["因为", "今天", "下雨了，", "所以", "我没有", "去", "踢足球。"], segPinyin: ["Yīnwèi", "jīntiān", "xiàyǔ le", "suǒyǐ", "wǒ méiyǒu", "qù", "tī zúqiú"], exHanzi: "因为 + 今天下雨了 + 所以 + 我没有去踢足球。", exPinyin: "Karena + Hari Ini Hujan + Jadi + Aku Tidak Pergi Main Bola", exMeaning: "Kalimat dari soal No. 11 (memakai kata 下雨 dan 去).", accent: "sky" },
+      { id: 82, category: "Kalimat Pendek PDF", visual: "🏫⏰", hanzi: "我们每天七点上课。", pinyin: "Wǒmen měitiān qī diǎn shàngkè.", meaning: "Kami setiap hari masuk kelas pukul tujuh.", segments: ["我们", "每天", "七点", "上课。"], segPinyin: ["Wǒmen", "měitiān", "qī diǎn", "shàngkè"], exHanzi: "我们 + 每天 + 七点 + 上课。", exPinyin: "Kami + Setiap Hari + Pukul Tujuh + Masuk Kelas", exMeaning: "Kalimat dari soal No. 16 (memakai kata 每天 dan 上课).", accent: "amber" },
+      { id: 83, category: "Kalimat Pendek PDF", visual: "🚘🐢", hanzi: "爸爸，您开车慢点儿，别太快！", pinyin: "Bàba, nín kāichē màn diǎnr, bié tài kuài!", meaning: "Ayah, menyetir mobilnya pelan sedikit, jangan terlalu cepat!", segments: ["爸爸，", "您", "开车", "慢点儿，", "别", "太快！"], segPinyin: ["Bàba", "nín", "kāichē", "màn diǎnr", "bié", "tài kuài"], exHanzi: "爸爸 + 您 + 开车 + 慢点儿 + 别太快！", exPinyin: "Ayah + Anda + Menyetir + Pelan Sedikit + Jangan Terlalu Cepat", exMeaning: "Kalimat dari soal No. 18 (memakai kata 开车, 慢, dan 快).", accent: "orange" },
+      { id: 84, category: "Kalimat Pendek PDF", visual: "✈️🏯", hanzi: "我们可以坐飞机去北京。", pinyin: "Wǒmen kěyǐ zuò fēijī qù Běijīng.", meaning: "Kita bisa naik pesawat pergi ke Beijing.", segments: ["我们", "可以", "坐飞机", "去", "北京。"], segPinyin: ["Wǒmen", "kěyǐ", "zuò fēijī", "qù", "Běijīng"], exHanzi: "我们 + 可以 + 坐飞机 + 去 + 北京。", exPinyin: "Kita + Bisa + Naik Pesawat + Pergi + Beijing", exMeaning: "Kalimat dari soal No. 21 (memakai kata 可以, 去, dan 北京).", accent: "cyan" },
+      { id: 85, category: "Kalimat Pendek PDF", visual: "🎒🪪", hanzi: "你的同学叫什么名字？", pinyin: "Nǐ de tóngxué jiào shénme míngzi?", meaning: "Siapa nama teman sekolahmu?", segments: ["你的", "同学", "叫", "什么", "名字？"], segPinyin: ["Nǐ de", "tóngxué", "jiào", "shénme", "míngzi"], exHanzi: "你的同学 + 叫 + 什么 + 名字？", exPinyin: "Teman Sekolahmu + Bernama + Apa + Nama", exMeaning: "Kalimat dari soal No. 27 (memakai kata 同学 dan 名字).", accent: "purple" },
+      { id: 86, category: "Kalimat Pendek PDF", visual: "💧💪", hanzi: "你应该要多喝水，才会健康。", pinyin: "Nǐ yīnggāi yào duō hē shuǐ, cái huì jiànkāng.", meaning: "Kamu seharusnya banyak minum air, barulah sehat.", segments: ["你", "应该", "要", "多", "喝水，", "才会", "健康。"], segPinyin: ["Nǐ", "yīnggāi", "yào", "duō", "hē shuǐ", "cái huì", "jiànkāng"], exHanzi: "你 + 应该 + 要 + 多喝水 + 才会健康。", exPinyin: "Kamu + Seharusnya + Harus + Banyak Minum Air + Barulah Sehat", exMeaning: "Kalimat dari soal No. 29 (memakai kata 应该, 要, dan 多).", accent: "teal" },
+      { id: 87, category: "Kalimat Pendek PDF", visual: "👩‍🍳🎂", hanzi: "这个蛋糕一定是妈妈做的。", pinyin: "Zhè gè dàngāo yīdìng shì māma zuò de.", meaning: "Kue ini pasti ibu yang membuatnya.", segments: ["这", "个", "蛋糕", "一定是", "妈妈", "做的。"], segPinyin: ["Zhè", "gè", "dàngāo", "yīdìng shì", "māma", "zuò de"], exHanzi: "这个 + 蛋糕 + 一定是 + 妈妈 + 做的。", exPinyin: "Ini (Satuan) + Kue + Pasti Adalah + Ibu + Yang Membuat", exMeaning: "Kalimat dari soal No. 30 (memakai kata 这, 个, dan 做).", accent: "pink" },
+      { id: 88, category: "Kalimat Pendek PDF", visual: "☝️🎂", hanzi: "因为只有她会做蛋糕。", pinyin: "Yīnwèi zhǐyǒu tā huì zuò dàngāo.", meaning: "Karena hanya dia yang bisa membuat kue.", segments: ["因为", "只", "有", "她", "会", "做", "蛋糕。"], segPinyin: ["Yīnwèi", "zhǐ", "yǒu", "tā", "huì", "zuò", "dàngāo"], exHanzi: "因为 + 只有 + 她 + 会 + 做蛋糕。", exPinyin: "Karena + Hanya Ada + Dia + Bisa + Membuat Kue", exMeaning: "Kalimat dari soal No. 30 (memakai kata 只 dan 做).", accent: "amber" },
+      { id: 89, category: "Kalimat Pendek PDF", visual: "✏️5️⃣", hanzi: "我有五支铅笔。", pinyin: "Wǒ yǒu wǔ zhī qiānbǐ.", meaning: "Aku mempunyai lima batang pensil.", segments: ["我", "有", "五", "支", "铅笔。"], segPinyin: ["Wǒ", "yǒu", "wǔ", "zhī", "qiānbǐ"], exHanzi: "我 + 有 + 五支 + 铅笔。", exPinyin: "Aku + Mempunyai + Lima Batang + Pensil", exMeaning: "Kalimat susun kata soal No. 36 (memakai kata 支 dan 铅笔).", accent: "emerald" },
+      { id: 90, category: "Kalimat Pendek PDF", visual: "🎤❓", hanzi: "你会唱歌吗？", pinyin: "Nǐ huì chànggē ma?", meaning: "Apakah kamu bisa bernyanyi?", segments: ["你", "会", "唱歌", "吗？"], segPinyin: ["Nǐ", "huì", "chànggē", "ma"], exHanzi: "你 + 会 + 唱歌 + 吗？", exPinyin: "Kamu + Bisa + Bernyanyi + Apakah", exMeaning: "Kalimat susun kata soal No. 37.", accent: "pink" },
+      { id: 91, category: "Kalimat Pendek PDF", visual: "👨🚆", hanzi: "爸爸每天坐火车去上班。", pinyin: "Bàba měitiān zuò huǒchē qù shàngbān.", meaning: "Ayah setiap hari naik kereta api pergi bekerja.", segments: ["爸爸", "每天", "坐火车", "去", "上班。"], segPinyin: ["Bàba", "měitiān", "zuò huǒchē", "qù", "shàngbān"], exHanzi: "爸爸 + 每天 + 坐火车 + 去 + 上班。", exPinyin: "Ayah + Setiap Hari + Naik Kereta Api + Pergi + Bekerja", exMeaning: "Kalimat susun kata soal No. 39 (memakai kata 每天 dan 去).", accent: "orange" },
+      { id: 92, category: "Kalimat Pendek PDF", visual: "👧🚲", hanzi: "姐姐想骑自行车去学校。", pinyin: "Jiějie xiǎng qí zìxíngchē qù xuéxiào.", meaning: "Kakak perempuan ingin mengendarai sepeda pergi ke sekolah.", segments: ["姐姐", "想", "骑自行车", "去", "学校。"], segPinyin: ["Jiějie", "xiǎng", "qí zìxíngchē", "qù", "xuéxiào"], exHanzi: "姐姐 + 想 + 骑自行车 + 去 + 学校。", exPinyin: "Kakak Perempuan + Ingin + Naik Sepeda + Pergi + Sekolah", exMeaning: "Kalimat susun kata soal No. 40 (memakai kata 想 dan 去).", accent: "emerald" }
     ];
 
     const CATEGORIES = [
       "Semua Kartu",
+      "Kosakata Baru",
       "Benda & Tempat",
-      "Kata Kerja & Kegiatan",
+      "Kata Kerja",
       "Transportasi",
       "Sifat & Tata Bahasa",
-      "Kalimat Lengkap"
+      "Kalimat Pendek PDF"
     ];
+
+    const ACCENT_MAP = {
+      amber:   { border: "border-amber-400",   badge: "bg-amber-100 text-amber-900 border-amber-300",     chip: "hover:bg-amber-100 border-amber-300" },
+      orange:  { border: "border-orange-400",  badge: "bg-orange-100 text-orange-900 border-orange-300",   chip: "hover:bg-orange-100 border-orange-300" },
+      sky:     { border: "border-sky-400",     badge: "bg-sky-100 text-sky-900 border-sky-300",           chip: "hover:bg-sky-100 border-sky-300" },
+      emerald: { border: "border-emerald-400", badge: "bg-emerald-100 text-emerald-900 border-emerald-300", chip: "hover:bg-emerald-100 border-emerald-300" },
+      purple:  { border: "border-purple-400",  badge: "bg-purple-100 text-purple-900 border-purple-300",   chip: "hover:bg-purple-100 border-purple-300" },
+      rose:    { border: "border-rose-400",    badge: "bg-rose-100 text-rose-900 border-rose-300",         chip: "hover:bg-rose-100 border-rose-300" },
+      pink:    { border: "border-pink-400",    badge: "bg-pink-100 text-pink-900 border-pink-300",         chip: "hover:bg-pink-100 border-pink-300" },
+      indigo:  { border: "border-indigo-400",  badge: "bg-indigo-100 text-indigo-900 border-indigo-300",   chip: "hover:bg-indigo-100 border-indigo-300" },
+      cyan:    { border: "border-cyan-400",    badge: "bg-cyan-100 text-cyan-900 border-cyan-300",         chip: "hover:bg-cyan-100 border-cyan-300" },
+      teal:    { border: "border-teal-400",    badge: "bg-teal-100 text-teal-900 border-teal-300",         chip: "hover:bg-teal-100 border-teal-300" }
+    };
 
     // ==================== STATE APLIKASI ====================
     let activeCategory = "Semua Kartu";
-    let currentDeck = [...ALL_FLASHCARDS];
-    let currentIndex = 0;
+    let deck = [...ALL_CARDS];
+    let currentIdx = 0;
     let isFlipped = false;
     let showTianzige = true;
     let showFrontPinyin = false;
     let soundFxEnabled = true;
-    let autoPlayTimer = null;
     let masteredIds = new Set();
+    let autoPlayTimer = null;
+    let activeSegmentIdx = -1;
 
-    // ==================== WEB AUDIO API (EFEK SUARA CERIA TANPA FILE EKSTERNAL) ====================
+    // ==================== WEB AUDIO API (EFEK SUARA CERIA) ====================
     let audioCtx = null;
-    function getAudioCtx() {
-      if (!audioCtx) {
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        if (AudioContext) audioCtx = new AudioContext();
-      }
-      if (audioCtx && audioCtx.state === "suspended") {
-        audioCtx.resume();
-      }
-      return audioCtx;
-    }
 
-    function playSoundEffect(type) {
+    function playTone(freq, duration = 0.14, type = "sine", delay = 0) {
       if (!soundFxEnabled) return;
       try {
-        const ctx = getAudioCtx();
-        if (!ctx) return;
-        const now = ctx.currentTime;
-
-        if (type === "flip") {
-          // Suara "whoosh" lembut saat kartu berputar
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
-          osc.type = "sine";
-          osc.frequency.setValueAtTime(280, now);
-          osc.frequency.exponentialRampToValueAtTime(620, now + 0.14);
-          gain.gain.setValueAtTime(0.14, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.16);
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-          osc.start(now);
-          osc.stop(now + 0.16);
-        } else if (type === "nav") {
-          // Suara "pop" ceria saat ganti kartu
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
-          osc.type = "triangle";
-          osc.frequency.setValueAtTime(420, now);
-          osc.frequency.exponentialRampToValueAtTime(700, now + 0.09);
-          gain.gain.setValueAtTime(0.16, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-          osc.start(now);
-          osc.stop(now + 0.1);
-        } else if (type === "star") {
-          // Nada lonceng C-E-G-C (Tadaa!) saat menandai bintang hafal
-          const notes = [523.25, 659.25, 783.99, 1046.5];
-          notes.forEach((freq, i) => {
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-            osc.type = "sine";
-            osc.frequency.setValueAtTime(freq, now + i * 0.08);
-            gain.gain.setValueAtTime(0.15, now + i * 0.08);
-            gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.08 + 0.28);
-            osc.connect(gain);
-            gain.connect(ctx.destination);
-            osc.start(now + i * 0.08);
-            osc.stop(now + i * 0.08 + 0.28);
-          });
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         }
+        if (audioCtx.state === "suspended") {
+          audioCtx.resume();
+        }
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime + delay);
+
+        gain.gain.setValueAtTime(0.001, audioCtx.currentTime + delay);
+        gain.gain.exponentialRampToValueAtTime(0.14, audioCtx.currentTime + delay + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + delay + duration);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(audioCtx.currentTime + delay);
+        osc.stop(audioCtx.currentTime + delay + duration + 0.02);
       } catch (e) {
-        // Abaikan jika browser memblokir audio sebelum interaksi
+        // Abaikan jika browser memblokir AudioContext sebelum interaksi pertama
       }
     }
 
-    // ==================== PELAFALAN MANDARIN (TEXT-TO-SPEECH) ====================
-    function speakMandarin(text, rate = 0.9) {
-      try {
-        if (!("speechSynthesis" in window)) return;
-        window.speechSynthesis.cancel();
-        const cleanText = text.replace(/……/g, "，");
-        const utter = new SpeechSynthesisUtterance(cleanText);
-        utter.lang = "zh-CN";
-        utter.rate = rate;
-
-        const btnNormal = document.getElementById("btnSpeakNormal");
-        utter.onstart = () => {
-          if (btnNormal) btnNormal.classList.add("speaking");
-        };
-        utter.onend = () => {
-          if (btnNormal) btnNormal.classList.remove("speaking");
-        };
-        utter.onerror = () => {
-          if (btnNormal) btnNormal.classList.remove("speaking");
-        };
-
-        window.speechSynthesis.speak(utter);
-      } catch (e) {}
+    function playFlipSound() {
+      playTone(440, 0.09, "triangle", 0);
+      playTone(660, 0.12, "triangle", 0.05);
     }
 
-    function speakCurrentWord(rate = 0.9) {
-      const card = currentDeck[currentIndex];
-      if (card) speakMandarin(card.hanzi, rate);
+    function playNavSound() {
+      playTone(523.25, 0.08, "sine", 0);
+      playTone(587.33, 0.09, "sine", 0.04);
+    }
+
+    function playStarSound() {
+      playTone(523.25, 0.12, "sine", 0);
+      playTone(659.25, 0.12, "sine", 0.07);
+      playTone(783.99, 0.16, "sine", 0.14);
+      playTone(1046.5, 0.25, "triangle", 0.21);
+    }
+
+    // ==================== PELAFALAN SUARA MANDARIN ====================
+    function showToast(msg, emoji = "🔊") {
+      const banner = document.getElementById("toastBanner");
+      document.getElementById("toastText").textContent = msg;
+      document.getElementById("toastEmoji").textContent = emoji;
+      banner.classList.remove("translate-y-24", "opacity-0");
+      banner.classList.add("translate-y-0", "opacity-100");
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => {
+        banner.classList.add("translate-y-24", "opacity-0");
+        banner.classList.remove("translate-y-0", "opacity-100");
+      }, 2200);
+    }
+
+    function speakText(text, rate = 0.85, label = "") {
+      playTone(620, 0.06, "sine", 0);
+      const cleanText = text.replace(/……/g, " ");
+
+      // Animasi gelombang suara pada tombol
+      const speakBtns = document.querySelectorAll(".js-speak-btn");
+      speakBtns.forEach(b => b.classList.add("speaking-wave"));
+      setTimeout(() => {
+        speakBtns.forEach(b => b.classList.remove("speaking-wave"));
+      }, 1200);
+
+      try {
+        if ("speechSynthesis" in window) {
+          window.speechSynthesis.cancel();
+          const utter = new SpeechSynthesisUtterance(cleanText);
+          utter.lang = "zh-CN";
+          utter.rate = rate;
+
+          // Cari suara Mandarin terbaik jika tersedia di perangkat
+          const voices = window.speechSynthesis.getVoices();
+          const zhVoice = voices.find(v => v.lang.toLowerCase().includes("zh-cn"))
+            || voices.find(v => v.lang.toLowerCase().startsWith("zh"));
+          if (zhVoice) {
+            utter.voice = zhVoice;
+          }
+
+          window.speechSynthesis.speak(utter);
+          showToast(label || `Membaca: ${cleanText}`, rate < 0.7 ? "🐢" : "🔊");
+        } else {
+          showToast(`Pelafalan: ${cleanText}`, "🗣️");
+        }
+      } catch (err) {
+        showToast(`Pelafalan: ${cleanText}`, "🗣️");
+      }
+    }
+
+    function speakCurrentMain(rate = 0.85) {
+      const card = deck[currentIdx];
+      if (!card) return;
+      speakText(card.hanzi, rate, `${rate < 0.7 ? "Pelan" : "Normal"}: ${card.hanzi} (${card.pinyin})`);
     }
 
     function speakCurrentExample() {
-      const card = currentDeck[currentIndex];
-      if (card) speakMandarin(card.exHanzi, 0.85);
+      const card = deck[currentIdx];
+      if (!card) return;
+      speakText(card.exHanzi, 0.85, `Contoh: ${card.exHanzi}`);
     }
 
-    // ==================== EFEK KONFETI PERAYAAN ====================
-    function launchConfetti() {
-      const colors = ["#F59E0B", "#EF4444", "#10B981", "#3B82F6", "#EC4899", "#8B5CF6"];
-      const shapes = ["⭐", "🎉", "✨", "🌟"];
-      for (let i = 0; i < 26; i++) {
-        const el = document.createElement("div");
-        el.className = "confetti-piece text-xl font-bold";
-        el.style.left = Math.random() * 100 + "vw";
-        el.style.animationDuration = (1.6 + Math.random() * 1.4) + "s";
-        el.style.color = colors[Math.floor(Math.random() * colors.length)];
-        el.textContent = shapes[Math.floor(Math.random() * shapes.length)];
-        document.body.appendChild(el);
-        setTimeout(() => el.remove(), 3000);
-      }
+    function speakSegment(segIdx) {
+      const card = deck[currentIdx];
+      if (!card || !card.segments[segIdx]) return;
+      activeSegmentIdx = segIdx;
+      renderCard(false);
+      const segText = card.segments[segIdx];
+      const segPin = card.segPinyin ? card.segPinyin[segIdx] : "";
+      speakText(segText, 0.8, `Baca satuan: ${segText} ${segPin ? "(" + segPin + ")" : ""}`);
     }
 
-    // ==================== RENDER KATEGORI & KARTU ====================
-    function renderCategoryBar() {
-      const bar = document.getElementById("categoryBar");
-      bar.innerHTML = CATEGORIES.map(cat => {
+    // ==================== KONTROL NAVIGASI & PENGATURAN ====================
+    function renderCategoryTabs() {
+      const container = document.getElementById("categoryTabs");
+      container.innerHTML = CATEGORIES.map(cat => {
         const count = cat === "Semua Kartu"
-          ? ALL_FLASHCARDS.length
-          : ALL_FLASHCARDS.filter(c => c.category === cat).length;
-        const active = activeCategory === cat;
+          ? ALL_CARDS.length
+          : ALL_CARDS.filter(c => c.category === cat).length;
+        const isActive = activeCategory === cat;
         return `
           <button
             onclick="selectCategory('${cat}')"
-            class="px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-extrabold transition cursor-pointer ${
-              active
-                ? "bg-orange-500 text-white shadow-sm scale-105"
-                : "bg-white hover:bg-amber-100 text-slate-700 border border-amber-200"
+            class="px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-extrabold whitespace-nowrap transition cursor-pointer ${
+              isActive
+                ? "bg-orange-500 text-white shadow-sm"
+                : "bg-white text-slate-700 hover:bg-amber-100 border border-amber-200"
             }"
           >
             ${cat} (${count})
@@ -752,251 +654,121 @@
     }
 
     function selectCategory(cat) {
-      stopAutoPlay();
       activeCategory = cat;
-      currentDeck = cat === "Semua Kartu"
-        ? [...ALL_FLASHCARDS]
-        : ALL_FLASHCARDS.filter(c => c.category === cat);
-      currentIndex = 0;
+      deck = cat === "Semua Kartu"
+        ? [...ALL_CARDS]
+        : ALL_CARDS.filter(c => c.category === cat);
+      currentIdx = 0;
       isFlipped = false;
-      playSoundEffect("nav");
-      renderCategoryBar();
+      activeSegmentIdx = -1;
+      stopAutoPlay();
+      playNavSound();
+      renderCategoryTabs();
       renderCard(true);
     }
 
-    function renderHanziChars(hanziText) {
-      const chars = Array.from(hanziText);
-      const len = chars.length;
-
-      // Ukuran font FZKai otomatis sangat besar sesuai panjang kata/kalimat agar jelas dari belakang kelas
-      let sizeClass = "text-7xl sm:text-8xl md:text-9xl";
-      let boxSizeClass = "w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44";
-
-      if (len === 3) {
-        sizeClass = "text-6xl sm:text-7xl md:text-8xl";
-        boxSizeClass = "w-24 h-24 sm:w-28 sm:h-28 md:w-36 md:h-36";
-      } else if (len === 4) {
-        sizeClass = "text-5xl sm:text-7xl md:text-8xl";
-        boxSizeClass = "w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32";
-      } else if (len >= 5) {
-        // Untuk frasa panjang / kalimat lengkap
-        return `
-          <div class="font-fzkai text-4xl sm:text-5xl md:text-6xl font-bold text-slate-900 text-center leading-snug bg-amber-50/80 px-6 py-5 rounded-3xl border-3 border-amber-300 shadow-inner">
-            ${hanziText}
-          </div>
-        `;
-      }
-
-      return chars.map(ch => {
-        if (showTianzige) {
-          return `
-            <div class="tianzige-box ${boxSizeClass} flex items-center justify-center">
-              <span class="font-fzkai ${sizeClass} font-bold text-slate-900 leading-none relative z-10">
-                ${ch}
-              </span>
-            </div>
-          `;
-        } else {
-          return `
-            <span class="font-fzkai ${sizeClass} font-bold text-slate-900 leading-none px-1">
-              ${ch}
-            </span>
-          `;
-        }
-      }).join("");
+    function prevCard() {
+      if (deck.length === 0) return;
+      currentIdx = (currentIdx - 1 + deck.length) % deck.length;
+      isFlipped = false;
+      activeSegmentIdx = -1;
+      playNavSound();
+      renderCard(true);
     }
 
-    function renderCard(animateEntrance = false) {
-      const card = currentDeck[currentIndex];
-      if (!card) return;
-
-      const wrapper = document.getElementById("cardWrapper");
-      const inner = document.getElementById("flipCardInner");
-      const frontFace = document.getElementById("cardFrontFace");
-
-      if (animateEntrance) {
-        wrapper.classList.remove("card-enter");
-        void wrapper.offsetWidth; // trigger reflow
-        wrapper.classList.add("card-enter");
-      }
-
-      if (isFlipped) {
-        inner.classList.add("is-flipped");
-      } else {
-        inner.classList.remove("is-flipped");
-      }
-
-      // Update warna bingkai kartu cerah sesuai item
-      frontFace.className = `flip-card-face rounded-[36px] bg-white border-[6px] ${card.border || "border-amber-400"} shadow-2xl p-5 sm:p-8 flex flex-col items-center justify-between cursor-pointer select-none`;
-
-      // Update Badges & Progress
-      document.getElementById("cardCounterBadge").textContent = `Kartu ${currentIndex + 1} / ${currentDeck.length}`;
-      document.getElementById("cardCategoryBadge").textContent = card.category;
-      document.getElementById("masteredCountBadge").textContent = `⭐ Hafal: ${masteredIds.size}`;
-      document.getElementById("totalBadgeCount").textContent = currentDeck.length;
-
-      const pct = Math.round(((currentIndex + 1) / currentDeck.length) * 100);
-      document.getElementById("deckProgressBar").style.width = `${pct}%`;
-
-      // Update Sisi Depan
-      document.getElementById("frontVisualBox").textContent = card.visual;
-      document.getElementById("frontHanziContainer").innerHTML = renderHanziChars(card.hanzi);
-
-      const frontPinyinEl = document.getElementById("frontPinyinDisplay");
-      frontPinyinEl.textContent = card.pinyin;
-      if (showFrontPinyin) {
-        frontPinyinEl.classList.remove("hidden");
-      } else {
-        frontPinyinEl.classList.add("hidden");
-      }
-
-      // Status Bintang Hafal
-      const isMastered = masteredIds.has(card.id);
-      const frontStarBtn = document.getElementById("frontStarBtn");
-      const backStarBtn = document.getElementById("backStarBtn");
-      if (isMastered) {
-        frontStarBtn.textContent = "⭐ Sudah Hafal!";
-        frontStarBtn.className = "px-3.5 py-1.5 rounded-full bg-amber-400 text-amber-950 font-black text-xs sm:text-sm border border-amber-500 transition cursor-pointer";
-        backStarBtn.textContent = "⭐ Sudah Hafal!";
-      } else {
-        frontStarBtn.textContent = "☆ Tandai Hafal";
-        frontStarBtn.className = "px-3.5 py-1.5 rounded-full bg-slate-100 hover:bg-amber-100 text-slate-600 font-extrabold text-xs sm:text-sm border border-slate-300 transition cursor-pointer";
-        backStarBtn.textContent = "☆ Tandai Bintang Hafal";
-      }
-
-      // Update Sisi Belakang
-      document.getElementById("backVisualIcon").textContent = card.visual;
-      document.getElementById("backHanziText").textContent = card.hanzi;
-      document.getElementById("backPinyinText").textContent = card.pinyin;
-      document.getElementById("backMeaningText").textContent = card.meaning;
-      document.getElementById("backExampleHanzi").textContent = card.exHanzi;
-      document.getElementById("backExamplePinyin").textContent = card.exPinyin;
-      document.getElementById("backExampleMeaning").textContent = card.exMeaning;
-    }
-
-    // ==================== KONTROL INTERAKSI ====================
-    function handleCardClick(e) {
-      if (e.target.closest("button")) return;
-      flipCard();
+    function nextCard() {
+      if (deck.length === 0) return;
+      currentIdx = (currentIdx + 1) % deck.length;
+      isFlipped = false;
+      activeSegmentIdx = -1;
+      playNavSound();
+      renderCard(true);
     }
 
     function flipCard() {
       isFlipped = !isFlipped;
-      playSoundEffect("flip");
-      renderCard(false);
-    }
-
-    function nextCard() {
-      currentIndex = (currentIndex + 1) % currentDeck.length;
-      isFlipped = false;
-      playSoundEffect("nav");
-      renderCard(true);
-      speakCurrentWord(0.9);
-    }
-
-    function prevCard() {
-      currentIndex = (currentIndex - 1 + currentDeck.length) % currentDeck.length;
-      isFlipped = false;
-      playSoundEffect("nav");
-      renderCard(true);
-      speakCurrentWord(0.9);
-    }
-
-    function shuffleDeck() {
-      stopAutoPlay();
-      for (let i = currentDeck.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [currentDeck[i], currentDeck[j]] = [currentDeck[j], currentDeck[i]];
-      }
-      currentIndex = 0;
-      isFlipped = false;
-      playSoundEffect("nav");
-      renderCard(true);
-    }
-
-    function resetOrder() {
-      stopAutoPlay();
-      currentDeck = activeCategory === "Semua Kartu"
-        ? [...ALL_FLASHCARDS]
-        : ALL_FLASHCARDS.filter(c => c.category === activeCategory);
-      currentIndex = 0;
-      isFlipped = false;
-      playSoundEffect("nav");
-      renderCard(true);
-    }
-
-    function toggleMastered() {
-      const card = currentDeck[currentIndex];
-      if (!card) return;
-      if (masteredIds.has(card.id)) {
-        masteredIds.delete(card.id);
-      } else {
-        masteredIds.add(card.id);
-        playSoundEffect("star");
-        launchConfetti();
-      }
-      renderCard(false);
+      playFlipSound();
+      renderCard(false, true);
     }
 
     function toggleTianzige() {
       showTianzige = !showTianzige;
       const btn = document.getElementById("btnTianzige");
-      btn.textContent = showTianzige ? "田 Kotak Huruf: ON" : "田 Kotak Huruf: OFF";
+      btn.textContent = `田 Kotak Huruf: ${showTianzige ? "ON" : "OFF"}`;
       btn.className = showTianzige
-        ? "px-3 py-2 rounded-xl text-xs sm:text-sm font-extrabold border-2 transition cursor-pointer bg-amber-100 text-amber-900 border-amber-400"
-        : "px-3 py-2 rounded-xl text-xs sm:text-sm font-extrabold border-2 transition cursor-pointer bg-slate-100 text-slate-700 border-slate-300";
+        ? "px-3 py-2 rounded-xl text-xs sm:text-sm font-extrabold bg-amber-100 text-amber-900 border-2 border-amber-400 hover:bg-amber-200 transition cursor-pointer"
+        : "px-3 py-2 rounded-xl text-xs sm:text-sm font-extrabold bg-slate-100 text-slate-700 border-2 border-slate-300 hover:bg-amber-50 transition cursor-pointer";
+      playNavSound();
       renderCard(false);
     }
 
     function toggleFrontPinyin() {
       showFrontPinyin = !showFrontPinyin;
       const btn = document.getElementById("btnFrontPinyin");
-      btn.textContent = showFrontPinyin ? "👀 Pinyin Depan: ON" : "👀 Pinyin Depan: OFF";
+      btn.textContent = `👀 Pinyin Depan: ${showFrontPinyin ? "ON" : "OFF"}`;
       btn.className = showFrontPinyin
-        ? "px-3 py-2 rounded-xl text-xs sm:text-sm font-extrabold border-2 transition cursor-pointer bg-orange-100 text-orange-900 border-orange-400"
-        : "px-3 py-2 rounded-xl text-xs sm:text-sm font-extrabold border-2 transition cursor-pointer bg-slate-100 text-slate-700 border-slate-300";
+        ? "px-3 py-2 rounded-xl text-xs sm:text-sm font-extrabold bg-emerald-100 text-emerald-900 border-2 border-emerald-400 hover:bg-emerald-200 transition cursor-pointer"
+        : "px-3 py-2 rounded-xl text-xs sm:text-sm font-extrabold bg-slate-100 text-slate-700 border-2 border-slate-300 hover:bg-amber-50 transition cursor-pointer";
+      playNavSound();
       renderCard(false);
     }
 
     function toggleSoundFx() {
       soundFxEnabled = !soundFxEnabled;
       const btn = document.getElementById("btnSoundFx");
-      btn.textContent = soundFxEnabled ? "🔔 Efek Suara" : "🔕 Bisu";
-      btn.className = soundFxEnabled
-        ? "px-3 py-2 rounded-xl text-xs sm:text-sm font-extrabold border-2 transition cursor-pointer bg-emerald-100 text-emerald-900 border-emerald-300"
-        : "px-3 py-2 rounded-xl text-xs sm:text-sm font-extrabold border-2 transition cursor-pointer bg-slate-200 text-slate-600 border-slate-300";
+      btn.textContent = `🔔 Efek Suara: ${soundFxEnabled ? "ON" : "OFF"}`;
+      if (soundFxEnabled) playStarSound();
     }
 
-    // Mode Putar Otomatis di Depan Kelas (Auto Slideshow)
+    function toggleMastered(cardId) {
+      if (masteredIds.has(cardId)) {
+        masteredIds.delete(cardId);
+        playNavSound();
+      } else {
+        masteredIds.add(cardId);
+        playStarSound();
+        showToast("Hebat! Kartu ditandai Sudah Hafal ⭐", "🎉");
+      }
+      updateTopBadges();
+      renderCard(false);
+    }
+
+    function shuffleDeck() {
+      for (let i = deck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [deck[i], deck[j]] = [deck[j], deck[i]];
+      }
+      currentIdx = 0;
+      isFlipped = false;
+      activeSegmentIdx = -1;
+      playFlipSound();
+      renderCard(true);
+      showToast("Urutan kartu berhasil diacak!", "🔀");
+    }
+
     function toggleAutoPlay() {
+      const btn = document.getElementById("btnAutoPlay");
       if (autoPlayTimer) {
         stopAutoPlay();
+        showToast("Auto Baca dihentikan.", "⏹️");
       } else {
-        const btn = document.getElementById("btnAutoPlay");
-        btn.textContent = "⏸️ Stop Auto";
-        btn.className = "px-3 py-2 rounded-xl text-xs sm:text-sm font-extrabold border-2 transition cursor-pointer bg-rose-500 text-white border-rose-700 animate-pulse";
-
-        isFlipped = false;
-        renderCard(false);
-        speakCurrentWord(0.85);
-
-        let step = 0;
+        btn.textContent = "⏹️ Stop Auto";
+        btn.classList.remove("bg-emerald-500", "hover:bg-emerald-600");
+        btn.classList.add("bg-rose-500", "hover:bg-rose-600");
+        speakCurrentMain(0.8);
         autoPlayTimer = setInterval(() => {
-          step++;
-          if (step % 2 === 1) {
-            // Langkah 1: Balik kartu untuk tunjukkan Pinyin & Arti
+          if (!isFlipped) {
             isFlipped = true;
-            playSoundEffect("flip");
-            renderCard(false);
+            renderCard(false, true);
           } else {
-            // Langkah 2: Pindah ke kartu berikutnya & bacakan suara
-            currentIndex = (currentIndex + 1) % currentDeck.length;
+            currentIdx = (currentIdx + 1) % deck.length;
             isFlipped = false;
-            playSoundEffect("nav");
+            activeSegmentIdx = -1;
             renderCard(true);
-            speakCurrentWord(0.85);
+            speakCurrentMain(0.8);
           }
-        }, 2800);
+        }, 3200);
+        showToast("Mode Auto Baca Kelas Aktif!", "▶️");
       }
     }
 
@@ -1004,78 +776,365 @@
       if (autoPlayTimer) {
         clearInterval(autoPlayTimer);
         autoPlayTimer = null;
-        const btn = document.getElementById("btnAutoPlay");
-        btn.textContent = "▶️ Auto Baca";
-        btn.className = "px-3 py-2 rounded-xl text-xs sm:text-sm font-extrabold border-2 transition cursor-pointer bg-sky-100 hover:bg-sky-200 text-sky-900 border-sky-300";
+      }
+      const btn = document.getElementById("btnAutoPlay");
+      if (btn) {
+        btn.textContent = "▶️ Auto Baca Kelas";
+        btn.classList.remove("bg-rose-500", "hover:bg-rose-600");
+        btn.classList.add("bg-emerald-500", "hover:bg-emerald-600");
       }
     }
 
-    // Layar Penuh untuk Proyektor Depan Kelas
     function toggleFullscreen() {
       if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen().catch(() => {});
+        document.documentElement.requestFullscreen().catch(() => {
+          showToast("Gunakan tombol F11 di keyboard untuk layar penuh.", "🖥️");
+        });
       } else {
-        document.exitFullscreen().catch(() => {});
+        document.exitFullscreen();
       }
     }
 
-    // Drawer Daftar Seluruh Kata
+    // ==================== RENDER TAMPILAN HANZI RAKSASA ====================
+    function buildGiantHanziDisplay(card) {
+      const len = card.hanzi.length;
+      const isSentence = len >= 6;
+
+      // Ukuran font FZKai sangat besar agar terbaca jelas dari baris belakang kelas
+      let sizeClass = "text-7xl sm:text-8xl md:text-9xl";
+      let boxSizeClass = "w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36";
+
+      if (len === 3) {
+        sizeClass = "text-6xl sm:text-7xl md:text-8xl";
+        boxSizeClass = "w-20 h-20 sm:w-28 sm:h-28 md:w-32 md:h-32";
+      } else if (len === 4 || len === 5) {
+        sizeClass = "text-5xl sm:text-6xl md:text-7xl";
+        boxSizeClass = "w-16 h-16 sm:w-24 sm:h-24 md:w-28 md:h-28";
+      } else if (isSentence) {
+        sizeClass = "text-4xl sm:text-5xl md:text-6xl leading-snug";
+      }
+
+      // Jika kalimat panjang (>= 6 karakter), tampilkan per potongan kata yang bisa diklik satu per satu!
+      if (isSentence && Array.isArray(card.segments)) {
+        return `
+          <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 my-2">
+            ${card.segments.map((seg, sIdx) => {
+              const isHighlighted = activeSegmentIdx === sIdx;
+              const segPin = card.segPinyin && card.segPinyin[sIdx] ? card.segPinyin[sIdx] : "";
+              return `
+                <button
+                  onclick="speakSegment(${sIdx})"
+                  class="px-3.5 py-2 sm:px-5 sm:py-3 rounded-2xl border-2 transition-all active:scale-95 cursor-pointer flex flex-col items-center ${
+                    isHighlighted
+                      ? "bg-amber-300 border-orange-500 shadow-md scale-105"
+                      : "bg-amber-50/90 hover:bg-amber-100 border-amber-300"
+                  }"
+                  title="Klik untuk membaca bagian ini satu per satu"
+                >
+                  <span class="font-fzkai ${sizeClass} font-bold text-slate-900">${seg}</span>
+                  ${showFrontPinyin && segPin ? `<span class="text-xs sm:text-sm font-extrabold text-orange-700 mt-1">${segPin}</span>` : ""}
+                </button>
+              `;
+            }).join("")}
+          </div>
+          <p class="text-xs font-extrabold text-amber-800 mt-1">
+            👆 Klik potongan kata di atas untuk membacanya satu per satu!
+          </p>
+        `;
+      }
+
+      // Untuk kosakata (1 - 5 karakter): tampilkan per karakter dalam kotak Tianzige (jika aktif) & bisa diklik satu per satu
+      const chars = Array.from(card.hanzi);
+      return `
+        <div class="flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 my-2">
+          ${chars.map((ch, cIdx) => {
+            const isPunct = ch === "…" || ch === "？" || ch === "。" || ch === "！";
+            const isHighlighted = activeSegmentIdx === cIdx;
+            const segPin = card.segPinyin && card.segPinyin[cIdx] ? card.segPinyin[cIdx] : "";
+
+            if (showTianzige && !isPunct) {
+              return `
+                <button
+                  onclick="speakSegment(${cIdx})"
+                  class="tianzige-box ${boxSizeClass} transition-transform hover:scale-105 active:scale-95 cursor-pointer flex flex-col ${
+                    isHighlighted ? "ring-4 ring-orange-400 scale-105" : ""
+                  }"
+                  title="Klik karakter untuk dengar bunyinya"
+                >
+                  <span class="font-fzkai ${sizeClass} font-bold text-slate-900 relative z-10 leading-none">${ch}</span>
+                  ${showFrontPinyin && segPin ? `<span class="text-xs sm:text-sm font-black text-orange-700 relative z-10 mt-1">${segPin}</span>` : ""}
+                </button>
+              `;
+            }
+
+            return `
+              <button
+                onclick="speakSegment(${cIdx})"
+                class="px-2 py-1 rounded-2xl hover:bg-amber-100/80 transition cursor-pointer flex flex-col items-center ${
+                  isHighlighted ? "bg-amber-200 ring-2 ring-orange-400" : ""
+                }"
+              >
+                <span class="font-fzkai ${sizeClass} font-bold text-slate-900 leading-tight">${ch}</span>
+                ${showFrontPinyin && segPin ? `<span class="text-xs sm:text-sm font-black text-orange-700 mt-1">${segPin}</span>` : ""}
+              </button>
+            `;
+          }).join("")}
+        </div>
+      `;
+    }
+
+    function updateTopBadges() {
+      document.getElementById("totalBadgeCount").textContent = ALL_CARDS.length;
+      document.getElementById("cardCounterBadge").textContent = `Kartu ${currentIdx + 1} / ${deck.length}`;
+      const card = deck[currentIdx];
+      if (card) {
+        document.getElementById("cardCategoryBadge").textContent = card.category;
+      }
+      document.getElementById("masteredCountBadge").textContent = `⭐ Hafal: ${masteredIds.size}`;
+      document.getElementById("flipBtnLabel").textContent = isFlipped ? "Kembali ke Hanzi" : "Lihat Pinyin & Arti";
+    }
+
+    function renderCard(animateEntrance = false, animateFlip = false) {
+      updateTopBadges();
+      const container = document.getElementById("flashcardContainer");
+      const card = deck[currentIdx];
+      if (!card) return;
+
+      const accent = ACCENT_MAP[card.accent] || ACCENT_MAP.amber;
+      const isMastered = masteredIds.has(card.id);
+      const animClass = animateEntrance ? "animate-card-enter" : (animateFlip ? "animate-card-flip" : "");
+
+      if (!isFlipped) {
+        // ==================== SISI DEPAN KARTU (HANZI RAKSASA + VISUAL + SUARA) ====================
+        container.innerHTML = `
+          <div class="bg-white/95 backdrop-blur-xs rounded-[32px] shadow-2xl border-4 ${accent.border} p-5 sm:p-8 min-h-[410px] sm:min-h-[460px] flex flex-col justify-between ${animClass}">
+            <!-- Bar Atas Kartu -->
+            <div class="flex items-center justify-between gap-2">
+              <span class="px-3.5 py-1 rounded-full border text-xs sm:text-sm font-black ${accent.badge}">
+                ${card.category} • #${card.id}
+              </span>
+
+              <button
+                onclick="toggleMastered(${card.id})"
+                class="px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-black border-2 transition cursor-pointer ${
+                  isMastered
+                    ? "bg-amber-400 text-amber-950 border-amber-600 shadow-xs"
+                    : "bg-slate-100 hover:bg-amber-100 text-slate-600 border-slate-300"
+                }"
+              >
+                ${isMastered ? "⭐ Sudah Hafal!" : "☆ Tandai Hafal"}
+              </button>
+            </div>
+
+            <!-- Tengah: Ilustrasi Visual Lucu + Hanzi FZKai Ukuran Besar -->
+            <div class="my-4 flex flex-col items-center text-center">
+              <!-- Ikon Visual Kartun Besar -->
+              <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-3xl bg-gradient-to-br from-amber-100 via-orange-50 to-sky-100 border-2 border-amber-200 shadow-sm flex items-center justify-center text-5xl sm:text-6xl mb-3 animate-float">
+                ${card.visual}
+              </div>
+
+              <!-- Karakter Hanzi Font FZKai Raksasa -->
+              ${buildGiantHanziDisplay(card)}
+
+              <!-- Pinyin Opsional di Sisi Depan (Jika Guru Mengaktifkan Pinyin Depan) -->
+              ${showFrontPinyin ? `
+                <div class="mt-3 px-5 py-1.5 rounded-2xl bg-orange-100 border border-orange-300 text-orange-900 font-black text-xl sm:text-2xl">
+                  ${card.pinyin}
+                </div>
+              ` : `
+                <p class="mt-2 text-xs sm:text-sm font-bold text-slate-400">
+                  Ayo coba baca karakter <span class="font-fzkai text-slate-600">汉字</span> di atas bersama-sama!
+                </p>
+              `}
+            </div>
+
+            <!-- Bawah: Tombol Suara Normal, Pelan & Balik Kartu -->
+            <div class="pt-4 border-t-2 border-amber-100 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
+              <button
+                onclick="speakCurrentMain(0.85)"
+                class="js-speak-btn px-5 py-3 rounded-2xl bg-sky-500 hover:bg-sky-600 active:scale-95 text-white font-black text-sm sm:text-base shadow-md border-b-4 border-sky-700 flex items-center gap-2 transition cursor-pointer"
+              >
+                <span>🔊</span>
+                <span>Baca Suara</span>
+              </button>
+
+              <button
+                onclick="speakCurrentMain(0.55)"
+                class="js-speak-btn px-4 py-3 rounded-2xl bg-teal-500 hover:bg-teal-600 active:scale-95 text-white font-black text-sm sm:text-base shadow-md border-b-4 border-teal-700 flex items-center gap-2 transition cursor-pointer"
+              >
+                <span>🐢</span>
+                <span>Baca Pelan</span>
+              </button>
+
+              <button
+                onclick="flipCard()"
+                class="px-5 py-3 rounded-2xl bg-amber-100 hover:bg-amber-200 active:scale-95 text-amber-950 font-black text-sm sm:text-base border-2 border-amber-400 flex items-center gap-2 transition cursor-pointer"
+              >
+                <span>👀</span>
+                <span>Buka Pinyin & Arti</span>
+              </button>
+            </div>
+          </div>
+        `;
+      } else {
+        // ==================== SISI BELAKANG KARTU (PINYIN + ARTI + CONTOH KALIMAT) ====================
+        container.innerHTML = `
+          <div class="bg-gradient-to-br from-white via-amber-50/90 to-sky-50/90 rounded-[32px] shadow-2xl border-4 ${accent.border} p-5 sm:p-8 min-h-[410px] sm:min-h-[460px] flex flex-col justify-between ${animClass}">
+            <!-- Bar Atas -->
+            <div class="flex items-center justify-between gap-2">
+              <span class="px-3.5 py-1 rounded-full bg-purple-100 text-purple-900 border border-purple-300 text-xs sm:text-sm font-black">
+                📖 Jawaban, Cara Baca & Contoh Kalimat
+              </span>
+
+              <button
+                onclick="toggleMastered(${card.id})"
+                class="px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-black border-2 transition cursor-pointer ${
+                  isMastered
+                    ? "bg-amber-400 text-amber-950 border-amber-600 shadow-xs"
+                    : "bg-white hover:bg-amber-100 text-slate-600 border-slate-300"
+                }"
+              >
+                ${isMastered ? "⭐ Sudah Hafal!" : "☆ Tandai Hafal"}
+              </button>
+            </div>
+
+            <!-- Konten Utama Pinyin & Arti -->
+            <div class="my-4 text-center space-y-3">
+              <div class="inline-flex items-center gap-3 px-6 py-2 rounded-3xl bg-white border-2 border-amber-200 shadow-xs">
+                <span class="text-4xl sm:text-5xl">${card.visual}</span>
+                <span class="font-fzkai text-4xl sm:text-6xl font-bold text-slate-900">${card.hanzi}</span>
+              </div>
+
+              <div>
+                <div class="text-3xl sm:text-5xl font-black text-orange-600 tracking-wide">
+                  ${card.pinyin}
+                </div>
+                <div class="text-xl sm:text-3xl font-extrabold text-slate-800 mt-1">
+                  “${card.meaning}”
+                </div>
+              </div>
+
+              <!-- Kotak Contoh Kalimat dari Soal / PDF -->
+              <div class="max-w-2xl mx-auto mt-4 p-4 sm:p-5 rounded-3xl bg-white border-2 border-sky-200 shadow-sm text-left">
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                  <span class="text-xs font-black uppercase tracking-wider text-sky-700">
+                    ✨ Contoh Penggunaan dalam Kalimat:
+                  </span>
+                  <button
+                    onclick="speakCurrentExample()"
+                    class="js-speak-btn px-3 py-1 rounded-full bg-sky-100 hover:bg-sky-200 text-sky-900 font-extrabold text-xs border border-sky-300 flex items-center gap-1 cursor-pointer"
+                  >
+                    <span>🔊</span> Dengar Kalimat
+                  </button>
+                </div>
+                <p class="font-fzkai text-2xl sm:text-3xl font-bold text-slate-900 leading-snug">
+                  ${card.exHanzi}
+                </p>
+                <p class="text-xs sm:text-sm font-bold text-orange-700 mt-1">
+                  ${card.exPinyin}
+                </p>
+                <p class="text-xs sm:text-sm font-semibold text-emerald-800 mt-0.5">
+                  ${card.exMeaning}
+                </p>
+              </div>
+            </div>
+
+            <!-- Tombol Bawah -->
+            <div class="pt-4 border-t-2 border-amber-200/70 flex flex-wrap items-center justify-center gap-3">
+              <button
+                onclick="speakCurrentMain(0.85)"
+                class="js-speak-btn px-5 py-3 rounded-2xl bg-sky-500 hover:bg-sky-600 active:scale-95 text-white font-black text-sm sm:text-base shadow-md border-b-4 border-sky-700 flex items-center gap-2 transition cursor-pointer"
+              >
+                <span>🔊</span>
+                <span>Ulangi Suara</span>
+              </button>
+
+              <button
+                onclick="flipCard()"
+                class="px-5 py-3 rounded-2xl bg-slate-800 hover:bg-slate-900 active:scale-95 text-white font-black text-sm sm:text-base shadow-md flex items-center gap-2 transition cursor-pointer"
+              >
+                <span>🔙</span>
+                <span>Kembali ke Hanzi</span>
+              </button>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    // ==================== DRAWER / MODAL DAFTAR SEMUA KATA ====================
     function toggleDrawer() {
-      const drawer = document.getElementById("wordDrawer");
-      const isHidden = drawer.classList.contains("hidden");
+      const modal = document.getElementById("wordListModal");
+      const isHidden = modal.classList.contains("hidden");
       if (isHidden) {
-        renderDrawerGrid();
-        drawer.classList.remove("hidden");
+        modal.classList.remove("hidden");
+        renderWordGrid();
       } else {
-        drawer.classList.add("hidden");
+        modal.classList.add("hidden");
       }
     }
 
-    function renderDrawerGrid() {
-      const grid = document.getElementById("drawerGrid");
-      grid.innerHTML = currentDeck.map((item, idx) => {
-        const isCurrent = idx === currentIndex;
-        const isStar = masteredIds.has(item.id);
+    function renderWordGrid() {
+      const query = (document.getElementById("searchInput").value || "").trim().toLowerCase();
+      const filtered = ALL_CARDS.filter(c =>
+        c.hanzi.toLowerCase().includes(query) ||
+        c.pinyin.toLowerCase().includes(query) ||
+        c.meaning.toLowerCase().includes(query) ||
+        c.category.toLowerCase().includes(query)
+      );
+
+      document.getElementById("modalCount").textContent = filtered.length;
+      const grid = document.getElementById("wordGridContainer");
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full text-center py-10 text-slate-500 font-bold">
+            Kata yang dicari tidak ditemukan. Coba kata lain ya! 🔍
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(c => {
+        const isMastered = masteredIds.has(c.id);
         return `
           <button
-            onclick="jumpToCard(${idx})"
-            class="p-3.5 rounded-2xl border-2 text-left transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer ${
-              isCurrent
-                ? "bg-orange-500 text-white border-orange-700 shadow-md"
-                : "bg-white hover:bg-amber-50 text-slate-800 border-amber-200"
-            }"
+            onclick="jumpToCardId(${c.id})"
+            class="p-3.5 rounded-2xl bg-amber-50/70 hover:bg-amber-100 border-2 ${
+              isMastered ? "border-emerald-400" : "border-amber-200"
+            } text-left transition flex items-center gap-3 cursor-pointer"
           >
-            <div class="flex items-center justify-between text-xs font-black mb-1">
-              <span>#${idx + 1} ${item.visual}</span>
-              <span>${isStar ? "⭐" : ""}</span>
-            </div>
-            <div class="font-fzkai text-2xl sm:text-3xl font-bold leading-snug my-1">
-              ${item.hanzi}
-            </div>
-            <div class="text-xs font-bold ${isCurrent ? "text-amber-100" : "text-rose-600"}">
-              ${item.pinyin}
-            </div>
-            <div class="text-xs font-semibold truncate ${isCurrent ? "text-white" : "text-slate-500"}">
-              ${item.meaning}
+            <span class="text-3xl shrink-0">${c.visual}</span>
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center justify-between gap-1">
+                <span class="font-fzkai text-2xl font-bold text-slate-900 truncate">${c.hanzi}</span>
+                ${isMastered ? `<span class="text-xs">⭐</span>` : ""}
+              </div>
+              <div class="text-xs font-extrabold text-orange-700 truncate">${c.pinyin}</div>
+              <div class="text-xs font-semibold text-slate-600 truncate">${c.meaning}</div>
             </div>
           </button>
         `;
       }).join("");
     }
 
-    function jumpToCard(idx) {
-      stopAutoPlay();
-      currentIndex = idx;
+    function jumpToCardId(cardId) {
+      activeCategory = "Semua Kartu";
+      deck = [...ALL_CARDS];
+      const foundIdx = deck.findIndex(c => c.id === cardId);
+      currentIdx = foundIdx >= 0 ? foundIdx : 0;
       isFlipped = false;
+      activeSegmentIdx = -1;
       toggleDrawer();
-      playSoundEffect("nav");
+      renderCategoryTabs();
       renderCard(true);
-      speakCurrentWord(0.9);
+      playNavSound();
     }
 
-    // Navigasi Keyboard untuk Guru di Depan Kelas
+    // ==================== PINTASAN KEYBOARD GURU ====================
     window.addEventListener("keydown", (e) => {
-      if (!document.getElementById("wordDrawer").classList.contains("hidden")) {
+      const modalOpen = !document.getElementById("wordListModal").classList.contains("hidden");
+      if (modalOpen) {
         if (e.key === "Escape") toggleDrawer();
         return;
       }
@@ -1087,13 +1146,16 @@
       } else if (e.key === "ArrowLeft") {
         prevCard();
       } else if (e.key.toLowerCase() === "s") {
-        speakCurrentWord(0.9);
+        speakCurrentMain(0.85);
       }
     });
 
-    // Inisialisasi
+    // Inisialisasi suara & tampilan awal
     window.addEventListener("DOMContentLoaded", () => {
-      renderCategoryBar();
+      if ("speechSynthesis" in window) {
+        window.speechSynthesis.getVoices();
+      }
+      renderCategoryTabs();
       renderCard(true);
     });
   </script>
